@@ -145,6 +145,9 @@ main { margin-left: var(--side); padding-top: var(--top); min-height: 100vh; }
 .hero h1 .sig { font-size: 18px; font-weight: 500; letter-spacing: .02em; color: #9fc3ff; margin-left: 10px; vertical-align: 6px; }
 .hero .subtitle { font-size: 22px; font-weight: 500; color: #dce6f7; margin: 14px 0 8px; }
 .hero .authors { font-size: 15px; color: #b8c5dc; max-width: 900px; }
+.hero .authors sup, .hero .affils sup { font-size: 10px; }
+.hero .affils { margin: 2px 0 0; font-size: 13.5px; color: #8d9bb5; max-width: 900px; }
+.hero .affils a { color: #b8c5dc; }
 .hero .tagline { margin: 14px 0 0; font-size: 16px; color: #e8eefb; max-width: 1120px; text-wrap: balance; }
 .hero .cta { display: flex; flex-wrap: wrap; gap: 10px; margin: 22px 0 30px; }
 .hero .btn { background: rgba(255, 255, 255, .08); color: #fff; border-color: rgba(255, 255, 255, .22); }
@@ -395,7 +398,7 @@ pre.bib { background: #0f1524; color: #d6e2ff; padding: 16px 18px; border-radius
 
 /* ---------- overview: centred layout ---------- */
 .hero { text-align: center; }
-.hero .authors, .hero .tagline { margin-left: auto; margin-right: auto; }
+.hero .authors, .hero .affils, .hero .tagline { margin-left: auto; margin-right: auto; }
 .hero .cta { justify-content: center; }
 .hero h1 .sig { display: inline-block; }
 .home-body { margin: 0 auto; max-width: 1180px; }
