@@ -1,9 +1,4 @@
 {
- "source": {
-  "paper": "paper/rpd/rpd_hy_version.tex",
-  "curves": "/apdcephfs_zwfy8/share_303937731/axiomlin/git_projects/MeanFlowNFT/outputs/all_metrics.csv",
-  "tts": "/apdcephfs_zwfy8/share_303937731/axiomlin/opensource/demo_task/paper/rpd/trends/multistep_metrics.csv"
- },
  "tab6a": {
   "columns": [
    "s/iter",
