@@ -35,7 +35,7 @@ colours; a click opens the trainer, prompt, seed and a one-line reproduction com
   by `demo_task/page_build/build_data.py` → `data/paper.json`, with the numbers as printed (trailing zeros kept) and the
   paper's bold cells. Nothing is retyped.
 - **Curves** (Fig. 3/4) come from `git_projects/MeanFlowNFT/outputs/all_metrics.csv`, the table the paper's figures
-  are plotted from, with the same arm selection and iteration cut as `figures/plot_paper_figures.py`.
+  are plotted from, with the same trial selection and iteration cut as `figures/plot_paper_figures.py`.
   Some Tab. 6(a) cells are read from these curves and agree to ±0.01 (e.g. MeanFlowNFT OCR at it. 100: 0.850 in the
   table, 0.845 logged).
 - **Test-time scaling** (Fig. 7) comes from `demo_task/paper/rpd/trends/multistep_metrics.csv`.
