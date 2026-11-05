@@ -1,0 +1,626 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0d1424">
+<title>FewStepRL — Fine-tuning Few-step Diffusion Models with Reinforcement Learning</title>
+<meta name="description" content="FewStepRL adapts RL objectives (FlowGRPO, AWM, DiffusionNFT, DiffusionOPSD, ReFL) to few-step flow-map generators in three phases: transformation, decomposition, adaptation.">
+<link rel="stylesheet" href="vendor/katex/katex.min.css">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <button class="btn menu-toggle" id="menu-toggle" aria-label="Open contents">☰</button>
+  <a class="brand" href="#home"><span class="logo" aria-hidden="true"></span>FewStepRL <span class="sig">— Hunyuan</span></a>
+  <span class="spacer"></span>
+  <nav class="links">
+    <a class="btn" href="#cite" data-todo="paper-url">Paper</a>
+    <a class="btn" href="coming-soon.html" data-todo="sd35-url">Code · SD3.5</a>
+    <a class="btn" href="coming-soon.html" data-todo="wan-url">Code · Wan2.1</a>
+    <a class="btn solid" href="#framework">Read the blog →</a>
+  </nav>
+</header>
+
+<aside class="sidebar" id="sidebar">
+  <nav class="toc" aria-label="Contents">
+    <div class="toc-group">
+      <a href="#home"><span class="num">⌂</span>Overview</a>
+    </div>
+    <div class="toc-group">
+      <div class="toc-title">The framework</div>
+      <a href="#framework"><span class="num">0</span>Why few-step RL?</a>
+      <a href="#phase-1"><span class="num">1</span>Transformation to x-space</a>
+      <a href="#phase-2"><span class="num">2</span>Decoupled decomposition</a>
+      <a href="#phase-3"><span class="num">3</span>Few-step adaptation</a>
+    </div>
+    <div class="toc-group">
+      <div class="toc-title">Methods in the framework</div>
+      <a href="#methods"><span class="num">≡</span>Family map &amp; components</a>
+      <div class="sub">
+        <a href="#m-fewstepgrpo"><span class="dot"></span>FewStepGRPO</a>
+        <a href="#m-meanflowawm"><span class="dot"></span>MeanFlowAWM</a>
+        <a href="#m-dmdawm"><span class="dot"></span>DMDAWM</a>
+        <a href="#m-meanflownft"><span class="dot"></span>MeanFlowNFT</a>
+        <a href="#m-dmdnft"><span class="dot"></span>DMDNFT</a>
+        <a href="#m-fewstepopsd"><span class="dot rg"></span>FewStepOPSD</a>
+        <a href="#m-refl"><span class="dot rg"></span>ReFL</a>
+      </div>
+    </div>
+    <div class="toc-group">
+      <div class="toc-title">Experiments</div>
+      <a href="#exp-mix"><span class="num">I</span>Image · mixed reward</a>
+      <a href="#exp-ocr"><span class="num">II</span>Image · OCR reward</a>
+      <a href="#exp-video"><span class="num">III</span>Video · Wan2.1</a>
+      <a href="#exp-tts"><span class="num">IV</span>Test-time scaling</a>
+      <a href="#guidance"><span class="num">V</span>Practical guidance</a>
+    </div>
+    <div class="toc-group">
+      <div class="toc-title">More</div>
+      <a href="#gallery"><span class="num">▦</span>Gallery</a>
+      <a href="#cite"><span class="num">❝</span>Code &amp; citation</a>
+    </div>
+  </nav>
+  <p class="side-foot">Group-advantage-based RL <span style="color:var(--grp)">●</span> · reward-gradient-based RL <span style="color:var(--rg)">●</span>. Every number carries its source in the paper.</p>
+</aside>
+
+<main id="main">
+
+<!-- =================================================================== HOME -->
+<section class="page wide" id="p-home" data-title="Overview">
+  <div class="hero">
+    <div class="kicker" style="color:#8fd8ff">Hunyuan · October 2026</div>
+    <h1><span class="accent">FewStepRL</span><span class="sig">— Hunyuan</span></h1>
+    <p class="subtitle">Fine-tuning Few-step Diffusion Models with Reinforcement Learning</p>
+    <p class="authors">Haitao Lin, Minsi Ren, Yang Li, Xingtong Ge, Zheyuan Hu, Peiyan Hu, Zhiming Ma, Tailin Wu</p>
+    <p class="tagline">One framework that adapts <b>FlowGRPO, AWM, DiffusionNFT, DiffusionOPSD</b> and <b>ReFL</b> to 4&#8209;step flow-map generators,
+      compared under one codebase on SD3.5-Medium (images) and Wan2.1-T2V-1.3B (videos).</p>
+    <div class="cta">
+      <a class="btn solid" href="#framework">Read the blog →</a>
+      <a class="btn" href="#cite" data-todo="paper-url">Paper</a>
+      <a class="btn" href="coming-soon.html" data-todo="sd35-url">Code · SD3.5</a>
+      <a class="btn" href="coming-soon.html" data-todo="wan-url">Code · Wan2.1</a>
+      <a class="btn" href="#cite">BibTeX</a>
+    </div>
+    <div class="filmstrip" data-film="images-a" style="--dur:110s"></div>
+    <div class="filmstrip reverse" data-film="videos" style="--dur:95s"></div>
+    <p class="film-caption">Every frame is sampled in <b>4 steps without CFG</b> by a released FewStepRL checkpoint. Hover a strip to stop it and see the true colours; click a frame for its trainer, prompt and seed.</p>
+  </div>
+
+  <div class="home-body">
+    <div class="home-intro">
+      <h2>TL;DR</h2>
+      <p>Reinforcement learning has become the standard post-training method for diffusion models, but every iteration has to roll out the current policy, and with a many-step sampler these rollouts dominate the cost of training. Few-step models cut this cost, yet they model an <em>average</em> velocity over an interval, whereas existing RL objectives are built for an <em>instantaneous</em> velocity with a many-step sampler.</p>
+      <p>FewStepRL adapts RL objectives to few-step models systematically in <b>three phases</b>. Each method then reduces to a choice of <b>three anchors and three weights</b> inside one shared loss, so all seven trainers run under identical rollout, reward and evaluation code.</p>
+    </div>
+
+    <h2 class="center">The three phases, explained</h2>
+    <p class="center note xp-intro">What RL does → instantaneous vs. average velocity → ① transformation → ② decomposition → ③ adaptation, with DiffusionNFT as the example (exact 1D flow, schematic 2D). <b>Play with narration</b> adds the voice (3&nbsp;min); click to pause or jump with the markers.</p>
+    <div class="explainer" data-explainer></div>
+    <p class="center small" style="margin-top:6px"><a href="assets/video/explainer.mp4" download>Download the narrated video (mp4)</a> · <a href="#framework">Read the framework →</a></p>
+
+    <h2 class="center">How each RL objective enters the three phases</h2>
+    <p class="center note"><span class="badge sm grp">GA</span> group-advantage-based · <span class="badge sm rg">RG</span> reward-gradient-based. Click a method to open its page; the phase links open the blog chapter.</p>
+    <div class="rt">
+      <div class="rt-lab h"></div>
+      <a class="rt-lab r1" href="#phase-1"><b title="Transformation"><i>1</i><em>Transformation</em></b><span>the objective in x-space</span></a>
+      <a class="rt-lab r2" href="#phase-2"><b title="Decomposition"><i>2</i><em>Decomposition</em></b><span>anchors and reward weight</span></a>
+      <a class="rt-lab r3" href="#phase-3"><b title="Adaptation"><i>3</i><em>Adaptation</em></b><span>few-step trainers</span></a>
+      <div class="rt-col ga">
+        <div class="rt-head"><div><b>FlowGRPO</b><span class="badge sm grp" title="group-advantage-based RL">GA</span></div><small>PPO on the SDE transition</small></div>
+        <div class="rt-c r1" data-lab="① Transformation"><div class="kv"><span class="k">prediction</span><span class="v">\(\mu_\theta\) at level \(r\)</span><span class="k">target</span><span class="v">\(x_r\) (visited state)</span><span class="k">weight</span><span class="v">\(A\), PPO clip</span></div></div>
+        <div class="rt-c r2" data-lab="② Decomposition"><div class="kv"><span class="k">\(\tilde x_{\mathrm{reg}}\)</span><span class="v">\(\varnothing\)</span><span class="k">\(\tilde x_{\mathrm{base}}\)</span><span class="v">\(\operatorname{sg}(\mu_\theta)\)</span><span class="k">\(\tilde x_{\mathrm{rwd}}\)</span><span class="v">\(x_r\)</span><span class="k">\(\omega\)</span><span class="v">\(\chi_{\mathrm{GRPO}}A/2\sigma_{\mathrm k}^2\)</span></div></div>
+        <div class="rt-c r3" data-lab="③ Adaptation"><div class="tr"><div class="nm"><a href="#m-fewstepgrpo">FewStepGRPO</a><code>v-ind</code></div><span>replays the stored SDE steps; \(\mu_\theta\) uses \(u_\theta{+}J\)</span></div></div>
+      </div>
+      <div class="rt-col ga">
+        <div class="rt-head"><div><b>AWM</b><span class="badge sm grp" title="group-advantage-based RL">GA</span></div><small>advantage-weighted matching</small></div>
+        <div class="rt-c r1" data-lab="① Transformation"><div class="kv"><span class="k">prediction</span><span class="v">\(\tilde x_\theta\)</span><span class="k">target</span><span class="v">\(\hat x\) (rollout)</span><span class="k">weight</span><span class="v">\(A\,w(t)/t^2\)</span></div></div>
+        <div class="rt-c r2" data-lab="② Decomposition"><div class="kv"><span class="k">\(\tilde x_{\mathrm{reg}}\)</span><span class="v">\(\varnothing\)</span><span class="k">\(\tilde x_{\mathrm{base}}\)</span><span class="v">\(\operatorname{sg}(\tilde x_\theta)\)</span><span class="k">\(\tilde x_{\mathrm{rwd}}\)</span><span class="v">\(\hat x\)</span><span class="k">\(\omega\)</span><span class="v">\(A\)</span></div></div>
+        <div class="rt-c r3" data-lab="③ Adaptation"><div class="tr"><div class="nm"><a href="#m-meanflowawm">MeanFlowAWM</a><code>v-ind</code></div><span>\(\tilde x_\theta=X[\tilde x_t,u_\theta{+}J,0]\)</span></div><div class="tr"><div class="nm"><a href="#m-dmdawm">DMDAWM</a><code>v-aux</code></div><span>\(\tilde x_{\mathrm{base}}=\tilde x_{\mathrm{aux}}\), \(J\) dropped</span></div></div>
+      </div>
+      <div class="rt-col ga">
+        <div class="rt-head"><div><b>DiffusionNFT</b><span class="badge sm grp" title="group-advantage-based RL">GA</span></div><small>negative-aware fine-tuning</small></div>
+        <div class="rt-c r1" data-lab="① Transformation"><div class="kv"><span class="k">prediction</span><span class="v">\(\tilde x^{\pm}_\theta\) around \(\tilde x_{\mathrm{old}}\)</span><span class="k">target</span><span class="v">\(\hat x\) (rollout)</span><span class="k">weight</span><span class="v">\(\hat r,\ 1-\hat r\)</span></div></div>
+        <div class="rt-c r2" data-lab="② Decomposition"><div class="kv"><span class="k">\(\tilde x_{\mathrm{reg}}\)</span><span class="v">\(\tilde x_{\mathrm{old}}\)</span><span class="k">\(\tilde x_{\mathrm{base}}\)</span><span class="v">\(\tilde x_{\mathrm{old}}\)</span><span class="k">\(\tilde x_{\mathrm{rwd}}\)</span><span class="v">\(\hat x\)</span><span class="k">\(\omega\)</span><span class="v">\(\operatorname{clip}(A,-1,1)/\beta\)</span></div></div>
+        <div class="rt-c r3" data-lab="③ Adaptation"><div class="tr"><div class="nm"><a href="#m-meanflownft">MeanFlowNFT</a><code>v-ind</code></div><span>\(\tilde x_{\mathrm{reg}}=\tilde x_{\mathrm{base}}=\tilde x_{\mathrm{ind}}\)</span></div><div class="tr"><div class="nm"><a href="#m-dmdnft">DMDNFT</a><code>v-aux</code></div><span>\(\tilde x_{\mathrm{base}}=\tilde x_{\mathrm{aux}}\), \(J\) cancels</span></div></div>
+      </div>
+      <div class="rt-col rg">
+        <div class="rt-head"><div><b>DiffusionOPSD</b><span class="badge sm rg" title="reward-gradient-based RL">RG</span></div><small>reward-gradient targets</small></div>
+        <div class="rt-c r1" data-lab="① Transformation"><div class="kv"><span class="k">prediction</span><span class="v">\(\tilde x^{\pm}_\theta\) as in NFT</span><span class="k">target</span><span class="v">\(\tilde x_\pm\) (\(\pm\nabla R\) steps)</span><span class="k">weight</span><span class="v">\(\hat r,\ 1-\hat r\)</span></div></div>
+        <div class="rt-c r2" data-lab="② Decomposition"><div class="kv"><span class="k">\(\tilde x_{\mathrm{reg}}\)</span><span class="v">\(\tilde x_{\mathrm{old}}\)</span><span class="k">\(\tilde x_{\mathrm{base}}\)</span><span class="v">\(\tilde x_{\mathrm{old}}\)</span><span class="k">\(\tilde x_{\mathrm{rwd}}\)</span><span class="v">\(\tilde x_+,\ \tilde x_-\)</span><span class="k">\(\omega\)</span><span class="v">\(\omega_1>0,\ \omega_2<0\) (fixed)</span></div></div>
+        <div class="rt-c r3" data-lab="③ Adaptation"><div class="tr"><div class="nm"><a href="#m-fewstepopsd">FewStepOPSD</a><code>v-ind</code></div><span>\(J\) cancels in every square</span></div><div class="tr"><div class="nm"><a href="#m-refl">ReFL</a><code>v-ind</code></div><span>only \(\tilde x_+\), \(\hat r\equiv1\), \(W_{\mathrm{reg}}=0\)</span></div></div>
+      </div>
+    </div>
+    <p class="center note" style="margin-top:8px">\(\varnothing\): no self-regression (\(W_{\mathrm{reg}}=0\)). Row ② is the decomposition of the original objective (§4.2, §5.3); row ③ the few-step anchors of Tab. 2.</p>
+
+    <h2 class="center">What we found</h2>
+    <div class="grid2">
+      <div class="card finding rg"><div class="ix">1</div><div><b>Reward gradient first, where affordable.</b> FewStepOPSD and ReFL reach the two highest training rewards (1.641, 1.623 vs. 1.461–1.519 for the five group-advantage methods) and are the only methods that raise CLIPScore in the default mixed-reward configuration. <span class="src">Tab. 6(b)</span></div></div>
+      <div class="card finding"><div class="ix">2</div><div><b>Otherwise, the DiffusionNFT family.</b> Among the group-advantage methods it reaches high rewards in relatively few iterations: with the non-differentiable OCR reward, MeanFlowNFT is the first past OCR 0.85 (iteration 100) and DMDNFT follows by iteration 150, whereas MeanFlowAWM and FewStepGRPO reach only 0.802 and 0.776 by iteration 200. <span class="src">Tab. 6(a), §6.6</span></div></div>
+      <div class="card finding"><div class="ix">3</div><div><b>Adaptation is necessary.</b> Applying the original objective with the average velocity substituted gives a lower best GenEval2 than the adapted objective for FlowGRPO, AWM and DiffusionNFT alike. <span class="src">Fig. 1</span></div></div>
+      <div class="card finding"><div class="ix">4</div><div><b>More steps at test time: no aggregate gain.</b> Rewards stay nearly flat from 4 to 32 steps, though many single samples look cleaner with 2–4× the training step count. <span class="src">§6.5</span></div></div>
+    </div>
+    <p class="center" style="margin-top:26px"><a class="btn solid" href="#framework">Read the framework →</a> &nbsp; <a class="btn" href="#gallery">Open the gallery</a></p>
+  </div>
+</section>
+
+<!-- =================================================================== FRAMEWORK 0 -->
+<section class="page" id="p-framework" data-title="Why few-step RL?">
+  <div class="kicker">The framework · 0</div>
+  <h1>Why few-step RL needs a framework</h1>
+  <p class="lead">RL rollouts dominate the cost of post-training. Few-step generators make rollouts cheap, but they predict an <em>average</em> velocity, while every RL objective we want to use was written for an <em>instantaneous</em> one.</p>
+
+  <h2>The few-step generator</h2>
+  <div class="prose">
+    <p>We write \(t\in[0,1]\) for the noise level (data at \(t=0\), noise at \(t=1\)). A few-step student \(u_\theta(x_t,t,r)\) is an <b>average-velocity generator</b>: the mean of the instantaneous velocity \(v_\theta\) along its probability-flow trajectory between levels \(r\) and \(t\). <span class="src">§3.1</span></p>
+  </div>
+  <div class="eqbox"><div class="label">average velocity and the few-step jump</div>
+  $$u_\theta(x_t,t,r)=\frac{1}{t-r}\int_r^t v_\theta(x_\nu,\nu)\,d\nu,\qquad \hat x_{\theta,r}=\hat x_{\theta,t}-(t-r)\,u_\theta(\hat x_{\theta,t},t,r).$$
+  </div>
+  <div class="prose">
+    <p>A sampler with \(M_{\mathrm{step}}\) steps is a chain of such exact jumps, one subtraction each, instead of many first-order Euler steps. Our models are distilled with <b>AnyFlow</b>, which first trains with the MeanFlow identity and then applies on-policy distribution matching (DMD) against the frozen teacher. <span class="src">§6.1</span></p>
+  </div>
+  <div class="grid2">
+    <div class="eqbox"><div class="label">MeanFlow identity and the detached J-term</div>
+      $$u_\theta=v_\theta-(t-r)\,\partial_t u_\theta,\qquad J[u,t,r]:=(t-r)\,\operatorname{sg}(\partial_t u)$$
+      <p class="note">\(J\) is the gap between the average and the instantaneous velocity, measured on the network itself and frozen before use (a directional-difference estimate in the code).</p>
+    </div>
+    <div class="eqbox"><div class="label">DMD: an auxiliary velocity</div>
+      $$\mathcal L_{\mathrm{aux}}=\mathbb E\,\big\|v_\phi(\tilde x_t,t)-(\epsilon-\hat x)\big\|^2,\quad \hat x\sim p_\theta$$
+      <p class="note">A second network \(v_\phi\) tracks the velocity of the student's own samples; \(v_{\mathrm{real}}-v_\phi\) gives the reverse-KL score difference.</p>
+    </div>
+  </div>
+
+  <h2>What goes wrong with direct substitution</h2>
+  <div class="prose">
+    <p>Applied directly, the RL objectives leave three questions open: which network evaluation should be differentiated, how the reference policy should be evaluated, and which parts of the interval \([r,t]\) are trained. Substituting the average velocity of the distilled model for the instantaneous velocity that FlowGRPO, AWM and DiffusionNFT require gives a <b>lower best GenEval2 than the adapted objective in each of the three cases</b>. <span class="src">Fig. 1</span></p>
+  </div>
+  <div class="grid3">
+    <figure class="card" style="margin:0;padding:10px"><img src="assets/fig/fig1_grpo.webp" alt="FewStepGRPO vs FlowGRPO, GenEval2 against iteration" loading="lazy"><figcaption class="note" style="margin-top:6px">(a) FewStepGRPO vs. FlowGRPO</figcaption></figure>
+    <figure class="card" style="margin:0;padding:10px"><img src="assets/fig/fig1_awm.webp" alt="MeanFlowAWM vs AWM, GenEval2 against iteration" loading="lazy"><figcaption class="note" style="margin-top:6px">(b) MeanFlowAWM vs. AWM</figcaption></figure>
+    <figure class="card" style="margin:0;padding:10px"><img src="assets/fig/fig1_nft.webp" alt="MeanFlowNFT vs DiffusionNFT, GenEval2 against iteration" loading="lazy"><figcaption class="note" style="margin-top:6px">(c) MeanFlowNFT vs. DiffusionNFT</figcaption></figure>
+  </div>
+  <p class="note">Paper Fig. 1: held-out GenEval2 against RL iteration (mixed reward), from the shared pre-RL few-step checkpoint. Dashed: original objective with the average velocity substituted. Solid: the few-step adaptation of this paper.</p>
+
+  <h2>Three phases</h2>
+  <figure class="card" style="margin:12px 0;padding:12px"><img src="assets/fig/overview.webp" alt="FewStepRL overview figure" loading="lazy"></figure>
+  <p class="note">Paper Fig. 2. (a) RL raises the relative mass of the high-reward mode; the objective is evaluated on the policy prediction \(\tilde x_\theta=X[\tilde x_t,v_\theta,0]\). (b) The gradient splits into a regression force toward \(\tilde x_{\mathrm{reg}}\) and a reward force along \(\tilde x_{\mathrm{rwd}}-\tilde x_{\mathrm{base}}\). (c) For a few-step model the prediction and anchors are computed at the end of the transport (u-form) or along its tangent (v-form).</p>
+  <div class="phase-cards">
+    <a class="phase-card" href="#phase-1"><div class="n">1</div><span class="go">→</span><h3>Transformation</h3><p>One common prediction in x-space makes density-, velocity- and reward-based objectives directly comparable.</p></a>
+    <a class="phase-card" href="#phase-2"><div class="n">2</div><span class="go">→</span><h3>Decomposition</h3><p>A method is specified by a prediction, three anchors \((\tilde x_{\mathrm{reg}},\tilde x_{\mathrm{rwd}},\tilde x_{\mathrm{base}})\) and three weights \((W_{\mathrm{reg}},W_{\mathrm{rwd}},\omega)\).</p></a>
+    <a class="phase-card" href="#phase-3"><div class="n">3</div><span class="go">→</span><h3>Adaptation</h3><p>Every anchor is computed from an average-velocity model, which yields few-step versions of all five objectives.</p></a>
+  </div>
+  <div class="pager"></div>
+</section>
+
+<!-- =================================================================== PHASE 1 -->
+<section class="page" id="p-phase-1" data-title="Transformation to x-space">
+  <div class="kicker">The framework · phase 1</div>
+  <h1>Transformation to x-space</h1>
+  <p class="lead">The objectives we consider are written in transition-density, velocity or reward space. Under the linear noise schedule a velocity instead identifies a <b>point</b> in x-space at any chosen level \(r\), so every objective can be expressed through one common prediction. <span class="src">§4.1</span></p>
+
+  <div class="eqbox"><div class="label">affine transport and the x-space identity</div>
+  $$X[x_t,v,r]:=x_t-(t-r)\,v,\qquad \|v_a-v_b\|^2=\frac{1}{(t-r)^2}\,\big\|X[x_t,v_a,r]-X[x_t,v_b,r]\big\|^2 .$$
+  </div>
+  <div class="prose">
+    <p>A velocity MSE equals a scaled MSE between transported points. At the clean level \(r=0\) the factor is \(t^{-2}\). For \(\tilde x_t=(1-t)x+t\epsilon\) and the conditional velocity \(v_{\mathrm{cond}}=\epsilon-x\), the transport lands exactly on the sample, \(X[\tilde x_t,v_{\mathrm{cond}},0]=x\).</p>
+    <p>For the reward objectives, a detached rollout endpoint \(\hat x^{(i)}\) is re-noised to \(\tilde x_t^{(i)}\), and the policy provides the <b>policy prediction</b> \(\tilde x_\theta^{(i)}=X[\tilde x_t^{(i)},v_\theta,0]=\tilde x_t^{(i)}-t\,v_\theta\). The same map applied to the old policy gives the <b>old policy's prediction</b> \(\tilde x_{\mathrm{old}}^{(i)}=X[\tilde x_t^{(i)},v_{\mathrm{old}},0]\). Every loss then compares predictions at the <em>same</em> state, and only \(\tilde x_\theta\) is differentiated.</p>
+  </div>
+
+  <div class="fig" id="fig-xspace">
+    <div class="schematic">Interactive · schematic 2-D illustration (not data)</div>
+    <div class="fig-grid">
+      <svg viewBox="0 0 560 400" aria-label="x-space transport diagram"></svg>
+      <div class="controls">
+        <label><span>noise level \(t\)</span><input type="range" min="0.05" max="1" step="0.01" value="0.6" data-k="t"><span class="val" data-v="t"></span></label>
+        <label><span>target level \(r\)</span><input type="range" min="0" max="0.95" step="0.01" value="0" data-k="r"><span class="val" data-v="r"></span></label>
+        <label><span>policy error</span><input type="range" min="0" max="1" step="0.01" value="0.45" data-k="e"><span class="val" data-v="e"></span></label>
+        <div class="readout" data-readout></div>
+        <p class="caption">The renoised state \(\tilde x_t\) lies on the straight path from the sample \(\hat x\) to the noise \(\epsilon\). Transporting it with the conditional velocity \(v_{\mathrm{cond}}\) (green) returns to \(\hat x\) at \(r=0\); transporting it with the policy velocity \(v_\theta\) (blue) gives the policy prediction. Move \(t\) and \(r\): the two printed numbers stay equal, which is the identity above.</p>
+      </div>
+    </div>
+  </div>
+
+  <h2>Two objectives in x-space</h2>
+  <div class="grid2">
+    <div class="card"><h3 style="margin-top:0">AWM <span class="src">Ex. AWM in x-space</span></h3>
+      <p>The AWM target \(v_{\mathrm{cond}}^{(i)}\) maps to the rollout endpoint itself, so</p>
+      $$\mathcal L_{\mathrm{AWM}}=\mathbb E\Big[A^{(i)}\,\frac{w(t)}{t^2}\,\big\|\tilde x_\theta^{(i)}-\hat x^{(i)}\big\|^2\Big],$$
+      <p class="note">a squared residual between the prediction and the model's own sample, weighted by the signed advantage. \(w(t)=t^2\) cancels the prefactor; the few-step implementation does this up to a floor.</p></div>
+    <div class="card"><h3 style="margin-top:0">DiffusionNFT <span class="src">Ex. DiffusionNFT in x-space</span></h3>
+      <p>The two implicit policies map to reflections about the old prediction, \(\tilde x^{\pm}_\theta=\tilde x_{\mathrm{old}}\pm\beta(\tilde x_\theta-\tilde x_{\mathrm{old}})\), so</p>
+      $$\mathcal L_{\mathrm{NFT}}=\mathbb E\Big[\tfrac{1}{t^2}\big(\hat r\,\|\tilde x^{+}_\theta-\hat x\|^2+(1-\hat r)\,\|\tilde x^{-}_\theta-\hat x\|^2\big)\Big],$$
+      <p class="note">two squared residuals to the model's sample, mixed by the bounded optimality weight \(\hat r=\tfrac12+\tfrac12\operatorname{clip}(A,-1,1)\).</p></div>
+  </div>
+  <div class="callout">Analysing a loss in x-space shows how the prediction \(\tilde x_\theta\) must change to reduce it: <b>which points it moves toward and which it moves away from</b>. That is exactly what phase 2 makes explicit.</div>
+  <div class="pager"></div>
+</section>
+
+<!-- =================================================================== PHASE 2 -->
+<section class="page" id="p-phase-2" data-title="Decoupled decomposition">
+  <div class="kicker">The framework · phase 2</div>
+  <h1>The decoupled loss decomposition</h1>
+  <p class="lead">In x-space, the gradient of every objective considered here is the transposed Jacobian of the prediction applied to the sum of two vectors: a reward-free <b>self-regression</b> and a <b>reward augmentation</b>. <span class="src">§4.2</span></p>
+
+  <div class="eqbox"><div class="label">general gradient (the framework)</div>
+  $$\nabla_\theta\mathcal L^{(i)}=2\Big(\frac{\partial\tilde x_\theta^{(i)}}{\partial\theta}\Big)^{\!\top}\Big[\underbrace{W_{\mathrm{reg}}^{(i)}\big(\tilde x_\theta^{(i)}-\tilde x_{\mathrm{reg}}^{(i)}\big)}_{\text{self-regression}}-\underbrace{W_{\mathrm{rwd}}^{(i)}\,\omega^{(i)}\big(\tilde x_{\mathrm{rwd}}^{(i)}-\tilde x_{\mathrm{base}}^{(i)}\big)}_{\text{reward augmentation}}\Big]$$
+  </div>
+  <div class="eqbox"><div class="label">the loss that the code implements (two squares)</div>
+  $$\mathcal L^{(i)}=W_{\mathrm{reg}}^{(i)}\big\|\tilde x_\theta^{(i)}-\tilde x_{\mathrm{reg}}^{(i)}\big\|^2+W_{\mathrm{rwd}}^{(i)}\big\|\tilde x_\theta^{(i)}-\operatorname{sg}\big(\tilde x_\theta^{(i)}+g^{(i)}\big)\big\|^2,\qquad g^{(i)}=\omega^{(i)}\big(\tilde x_{\mathrm{rwd}}^{(i)}-\tilde x_{\mathrm{base}}^{(i)}\big)$$
+  </div>
+  <div class="grid2">
+    <div class="card"><h3 style="margin-top:0">Self-regression</h3><p>Independent of the reward. It vanishes at \(\tilde x_\theta=\tilde x_{\mathrm{reg}}\) and pulls the prediction back toward an anchor the policy should stay close to, canonically the old policy's prediction. It limits how far the reward term can move the prediction and so <b>protects against reward hacking</b>.</p></div>
+    <div class="card"><h3 style="margin-top:0">Reward augmentation</h3><p>For fixed anchors, a vector that contains the reward. Gradient descent moves \(\tilde x_\theta\) along \(+\omega(\tilde x_{\mathrm{rwd}}-\tilde x_{\mathrm{base}})\): the <b>sign of \(\omega\)</b> decides attraction or repulsion, \(\tilde x_{\mathrm{rwd}}\) is usually the rollout sample, and \(\tilde x_{\mathrm{base}}\) sets the reference point of the displacement.</p></div>
+  </div>
+
+  <div class="fig" id="fig-forces">
+    <div class="schematic">Interactive · schematic force diagram (unit weights, not data)</div>
+    <div class="chips" data-presets></div>
+    <div class="fig-grid">
+      <svg viewBox="0 0 560 400" aria-label="force diagram"></svg>
+      <div class="controls">
+        <label data-for="A"><span>advantage \(A\)</span><input type="range" min="-2" max="2" step="0.05" value="1" data-k="A"><span class="val" data-v="A"></span></label>
+        <label data-for="rhat"><span>mix \(\hat r\)</span><input type="range" min="0" max="1" step="0.01" value="0.75" data-k="rhat"><span class="val" data-v="rhat"></span></label>
+        <div class="readout" data-readout></div>
+        <div class="readout" data-anchors></div>
+        <p class="caption">Drag the prediction \(\tilde x_\theta\) (blue). Arrows show the two terms of the descent direction: the regression force \(-W_{\mathrm{reg}}(\tilde x_\theta-\tilde x_{\mathrm{reg}})\) (grey) and the reward force \(+W_{\mathrm{rwd}}\,\omega(\tilde x_{\mathrm{rwd}}-\tilde x_{\mathrm{base}})\) (blue for attraction, orange for repulsion), and their sum (dark).</p>
+      </div>
+    </div>
+  </div>
+
+  <h2>Original methods as anchors and weights</h2>
+  <p class="prose">The decomposition applies to the instantaneous-velocity originals, and also to the reward-free distillation losses (with \(\omega\equiv1\) and the teacher's prediction \(\tilde x_{\mathrm{real}}=X[\tilde x_t,v_{\mathrm{real}},0]\) as the rewarded anchor).</p>
+  <div class="table-wrap"><table class="data comps" id="tab-decomp">
+    <thead><tr><th class="nosort">objective</th><th class="nosort">\(\tilde x_{\mathrm{reg}}\)</th><th class="nosort">\(\tilde x_{\mathrm{base}}\)</th><th class="nosort">\(\tilde x_{\mathrm{rwd}}\)</th><th class="nosort">\(W_{\mathrm{reg}}\)</th><th class="nosort">\(W_{\mathrm{rwd}}\)</th><th class="nosort">\(\omega\)</th></tr></thead>
+    <tbody>
+      <tr><td>AWM</td><td>—</td><td>\(\operatorname{sg}(\tilde x_\theta)\)</td><td>\(\hat x\)</td><td>0</td><td>\(w(t)/t^2\)</td><td>\(A\)</td></tr>
+      <tr><td>DiffusionNFT</td><td>\(\tilde x_{\mathrm{old}}\)</td><td>\(\tilde x_{\mathrm{old}}\)</td><td>\(\hat x\)</td><td>\(\beta^2/t^2\)</td><td>\(\beta^2/t^2\)</td><td>\(\operatorname{clip}(A,-1,1)/\beta\)</td></tr>
+      <tr><td>DiffusionOPSD</td><td>\(\tilde x_{\mathrm{old}}\)</td><td>\(\tilde x_{\mathrm{old}}\)</td><td>\(\tilde x_{+},\ \tilde x_{-}\)</td><td>\(\beta^2(a_++a_-)\)</td><td>\(\beta^2(a_++a_-)\)</td><td>\(\frac{a_+}{\beta(a_++a_-)},\ -\frac{a_-}{\beta(a_++a_-)}\)</td></tr>
+      <tr><td>ReFL (proxy)</td><td>—</td><td>\(\tilde x_{\mathrm{old}}\)</td><td>\(\tilde x_{+}\) (one ascent step)</td><td>0</td><td>detached \(>0\)</td><td>\(>0\)</td></tr>
+      <tr class="ref"><td>MeanFlow (distill.)</td><td>—</td><td>\(\tilde x_{\mathrm{ind},r}\)</td><td>\(\tilde x_{\mathrm{real},r}\)</td><td>0</td><td>\(1/(t-r)^2\)</td><td>1</td></tr>
+      <tr class="ref"><td>DMD (distill.)</td><td>—</td><td>\(\tilde x_{\mathrm{aux}}\)</td><td>\(\tilde x_{\mathrm{real}}\)</td><td>0</td><td>\((1-t)/(2t^2)\)</td><td>1</td></tr>
+    </tbody></table></div>
+  <p class="note">From the worked examples of §4.2 (AWM, DiffusionNFT, MeanFlow, DMD) and §4.3 (DiffusionOPSD, ReFL). In DiffusionNFT both anchors coincide at the old prediction, so it regularises toward the point from which it measures the reward; its reward coefficient saturates at \(1/\beta\). AWM has no self-regression in its matching loss; its velocity-space proximal penalty plays that role.</p>
+
+  <h3>An intuitive example</h3>
+  <div class="prose"><p>Take a group with \(A^{(1)}>A^{(2)}>0>A^{(3)}\). Members 1 and 2 are both attracted toward their rewarded samples; member 2 is not penalised for scoring below member 1, it only gets a smaller step. Member 3 scores below the group mean, so \(\omega^{(3)}<0\) and its prediction is repelled away from its sample. <b>Attraction or repulsion is set by the baseline-subtracted advantage, not by the raw reward.</b></p></div>
+  <div class="pager"></div>
+</section>
+
+<!-- =================================================================== PHASE 3 -->
+<section class="page" id="p-phase-3" data-title="Few-step adaptation">
+  <div class="kicker">The framework · phase 3</div>
+  <h1>Adaptation to few-step models</h1>
+  <p class="lead">The framework needs instantaneous velocities, but a few-step policy outputs an average velocity \(u_\theta(\tilde x_t,t,r)\). The rollout sample needs no reconstruction and the teacher stays instantaneous, so only \(\tilde x_\theta\) and the old-policy anchors must be rebuilt. <span class="src">§4.3</span></p>
+
+  <div class="grid2">
+    <div class="card"><h3 style="margin-top:0">u-prediction (u-form)</h3>
+      $$\tilde x_{\theta,\mathrm u}=\tilde x_t-t\,u_\theta(\tilde x_t,t,0)$$
+      <p>Replace every instantaneous velocity by \(u_\theta(\cdot,t,0)\). The Jacobian is \(\partial\tilde x_{\theta,\mathrm u}/\partial\theta\): each update trains only the <b>\(r=0\) edge</b> of the flow map and leaves the entries \(r\neq0\), which the sampler uses, without a gradient.</p></div>
+    <div class="card"><h3 style="margin-top:0">v-prediction (v-form)</h3>
+      $$\tilde x_{\theta,\mathrm v}=\tilde x_t-t\big(u_\theta(\tilde x_t,t,r)+J[u_{\mathrm{old}},t,r]\big)$$
+      <p>Keep \(\tilde x_\theta=X[\tilde x_t,v,0]\) and recover \(v\) from the network. \(J\) is detached, so it shifts the prediction without changing its Jacobian; \(r\) is resampled every update, so <b>every \(u_\theta(\cdot,t,r)\)</b> receives a gradient.</p></div>
+  </div>
+  <div class="grid2">
+    <div class="eqbox"><div class="label"><code>v-ind</code> · self-induced velocity (MeanFlow)</div>
+      $$v_{\mathrm{ind}}=u_{\mathrm{old}}+J[u_{\mathrm{old}},t,r],\qquad \tilde x_{\mathrm{ind}}=\tilde x_t-t\,v_{\mathrm{ind}}$$
+      <p class="note">No second network; costs a Jacobian-vector product, estimated with two extra no-grad forwards of \(u_{\mathrm{old}}\) per query. <span class="src">Tab. 4</span></p></div>
+    <div class="eqbox"><div class="label"><code>v-aux</code> · auxiliary velocity (DMD)</div>
+      $$v_\phi(\tilde x_t,t)\approx\mathbb E_{\hat x\sim p_{\mathrm{old}}}\big[\epsilon-\hat x\mid\tilde x_t\big],\qquad \tilde x_{\mathrm{aux}}=\tilde x_t-t\,v_\phi$$
+      <p class="note">Fitted online to the old-policy rollouts (\(n_{\mathrm{fm}}=5\) flow-matching steps per outer iteration); used only as an anchor, never as the prediction, otherwise \(\partial\tilde x_\theta/\partial\theta=0\).</p></div>
+  </div>
+
+  <div class="fig" id="fig-forms">
+    <div class="schematic">Interactive · schematic trajectory (not data)</div>
+    <div class="chips" data-forms></div>
+    <div class="fig-grid">
+      <svg viewBox="0 0 560 360" aria-label="u-form versus v-form diagram"></svg>
+      <div class="controls">
+        <label><span>level \(t\)</span><input type="range" min="0.3" max="1" step="0.01" value="0.85" data-k="t"><span class="val" data-v="t"></span></label>
+        <label><span>query \(r\)</span><input type="range" min="0" max="0.8" step="0.01" value="0.35" data-k="r"><span class="val" data-v="r"></span></label>
+        <svg class="domain" viewBox="0 0 240 200" aria-label="trained (t, r) domain"></svg>
+        <div class="readout" data-readout></div>
+      </div>
+    </div>
+  </div>
+
+  <h2>The three few-step forms</h2>
+  <div class="table-wrap"><table class="data comps" id="tab-forms">
+    <thead><tr><th class="nosort"></th><th class="nosort">u-form</th><th class="nosort">v-form, shared-J (<code>v-ind</code>)</th><th class="nosort">v-form, auxiliary (<code>v-aux</code>)</th></tr></thead>
+    <tbody>
+      <tr><td>\(\tilde x_\theta\)</td><td>\(X[\tilde x_t,u_\theta(\tilde x_t,t,0),0]\)</td><td>\(X[\tilde x_t,u_\theta(\tilde x_t,t,r)+J,0]\)</td><td>\(X[\tilde x_t,u_\theta(\tilde x_t,t,r),0]\)</td></tr>
+      <tr><td>\(\tilde x_{\mathrm{reg}}\)</td><td>\(X[\tilde x_t,u_{\mathrm{old}}(\tilde x_t,t,0),0]\)</td><td>\(X[\tilde x_t,v_{\mathrm{ind}},0]\)</td><td>\(X[\tilde x_t,u_{\mathrm{old}}(\tilde x_t,t,r),0]\)</td></tr>
+      <tr><td>\(\tilde x_{\mathrm{base}}\)</td><td>\(X[\tilde x_t,u_{\mathrm{old}}(\tilde x_t,t,0),0]\)</td><td>\(X[\tilde x_t,v_{\mathrm{ind}},0]\)</td><td>\(X[\tilde x_t,v_\phi,0]\)</td></tr>
+      <tr><td>\(\tilde x_{\mathrm{rwd}}\) (rollout)</td><td>\(\hat x\)</td><td>\(\hat x\)</td><td>\(\hat x\)</td></tr>
+      <tr><td>trained \((t,r)\)</td><td>\((t,0)\)</td><td>\((t,r)\), \(0\le r\le t\)</td><td>\((t,r)\); \(v_\phi\) queried at \((\tilde x_t,t)\) only</td></tr>
+    </tbody></table></div>
+  <p class="note">Paper Tab. 1, with \(J=J[u_{\mathrm{old}},t,r]\) and \(v_{\mathrm{ind}}=u_{\mathrm{old}}+J\). A few-step method does not introduce a new loss: it specifies how the four points are computed and which entries \(u_\theta(\cdot,t,r)\) receive a gradient.</p>
+
+  <h2>One training step for every trainer</h2>
+  <div class="prose"><p>All trainers are subclasses of one base trainer whose <code>step</code> runs one outer iteration: rollout → reward and advantage → (auxiliary fit) → \(n_{\mathrm{it}}\) queries of anchors, weights and loss → one optimiser step → refresh of the old policy (EMA). <span class="src">§5.1, Code 1</span></p></div>
+<pre class="code"><span class="k">class</span> <span class="f">FewStepRLTrainer</span>:
+    estimator = VInd()                 <span class="c"># Stage 3(ii)-(iii): v-ind or v-aux</span>
+    n_it = n_ts                        <span class="c"># default; FewStepGRPO uses M_step, FewStepOPSD uses 1</span>
+
+    <span class="k">def</span> <span class="f">step</span>(self, prompts):                         <span class="c"># ONE outer iteration</span>
+        batch = self.rollout(prompts)                <span class="c"># Stage 1, detached</span>
+        R = reward(decode(batch.x_hat), batch.c)     <span class="c"># Stage 2</span>
+        batch.A, batch.r_hat = self.advantage(R, batch.c)
+        self.estimator.fit(batch)                    <span class="c"># v-aux only</span>
+        <span class="k">for</span> q <span class="k">in</span> self.queries(batch):                <span class="c"># Stage 3(i): n_it queries</span>
+            p = self.anchors(q)                      <span class="c"># Stage 3(ii)-(iii): x_θ, x_reg, x_base, x_rwd</span>
+            W_reg, W_rwd, omega = self.weights(q, p) <span class="c"># Stage 3(iv)</span>
+            loss = self.loss(p, W_reg, W_rwd, omega) <span class="c"># Stage 4: the two squares</span>
+            accumulate(mean_batch(loss + lam_kl * self.kl(q)) / self.n_it)
+        self.update()                                <span class="c"># one step on θ</span>
+        self.refresh_old()                           <span class="c"># u_old ← EMA of u_θ</span></pre>
+  <p class="note">Abridged from the paper's Code 1. Each method overrides only the components in which it differs; see the <a href="#methods">components table</a>.</p>
+  <div class="pager"></div>
+</section>
+
+<!-- =================================================================== METHODS OVERVIEW -->
+<section class="page" id="p-methods" data-title="Methods: family map &amp; components">
+  <div class="kicker">Methods in the framework</div>
+  <h1>Seven trainers, one training step</h1>
+  <p class="lead">Each original objective becomes a few-step trainer by choosing its anchors, weights and instantaneous-velocity estimator. Five trainers are <b style="color:var(--grp)">group-advantage-based</b> (the reward enters only through scalar advantages of a prompt group); two are <b style="color:var(--rg)">reward-gradient-based</b> (the update direction comes from \(\nabla R\)). <span class="src">Tab. 5</span></p>
+
+  <h2>Family map</h2>
+  <div class="family-map">
+    <div></div><div class="hd">FlowGRPO</div><div class="hd">AWM</div><div class="hd">DiffusionNFT</div><div class="hd">DiffusionOPSD</div><div class="hd">ReFL</div>
+    <div class="row-h" style="color:var(--grp)">v-ind (MeanFlow)</div>
+    <a class="cell grp" href="#m-fewstepgrpo">FewStepGRPO<small>replayed SDE transitions</small></a>
+    <a class="cell grp" href="#m-meanflowawm">MeanFlowAWM<small>shared J</small></a>
+    <a class="cell grp" href="#m-meanflownft">MeanFlowNFT<small>shared J</small></a>
+    <a class="cell rg" href="#m-fewstepopsd">FewStepOPSD<small>J cancels → dropped</small></a>
+    <a class="cell rg" href="#m-refl">ReFL<small>proxy configuration of OPSD</small></a>
+    <div class="row-h" style="color:var(--grp)">v-aux (DMD)</div>
+    <div class="empty">not used <span class="src" style="margin-left:4px">App. B.1</span></div>
+    <a class="cell grp" href="#m-dmdawm">DMDAWM<small>\(v_\phi\) baseline, \(J=0\)</small></a>
+    <a class="cell grp" href="#m-dmdnft">DMDNFT<small>\(v_\phi\) baseline</small></a>
+    <div class="empty">—</div><div class="empty">—</div>
+  </div>
+  <p class="note">The v-aux variant of FewStepGRPO is not used because \(v_\phi\) is fitted on endpoint-renoised states rather than replayed sampler states.</p>
+
+  <h2>Components of each trainer <span class="src">Tab. 2</span></h2>
+  <p class="note">Click a trainer to open its page; hover to highlight its column.</p>
+  <div class="table-wrap"><table class="data comps" id="tab-components"></table></div>
+  <p class="note">\(\tilde x_{\mathrm{ind}}|_{J=0}=X[\tilde x_t,u_{\mathrm{old}}(\tilde x_t,t,r),0]\), used with the J-free \((t,r)\) query. \(a_+=\hat r/\gamma_+\), \(a_-=(1-\hat r)/\gamma_-\) with adaptive normalisers \(\gamma_\pm\); \(c_{\mathrm{adv}}\) undoes the compression of the advantage in \(\hat r\). In FewStepOPSD and ReFL the sign of \(\omega\) is fixed by construction, not by \(A\).</p>
+
+  <h2>Network evaluations per inner iteration <span class="src">Tab. 4</span></h2>
+  <div class="table-wrap"><table class="data" id="tab-cost">
+    <thead><tr><th class="nosort">trainer</th><th class="nosort">\(n_{\mathrm{it}}\)</th><th class="nosort">\(c_\theta\)</th><th class="nosort">\(c_{\mathrm{old}}\)</th><th class="nosort">\(c_J\)</th><th class="nosort">\(c_\phi\)</th><th class="nosort">\(c_{\mathrm{ref}}\)</th><th class="nosort">\(c_{\mathrm{extra}}\) per outer iteration</th></tr></thead>
+    <tbody>
+      <tr class="grp"><td><a href="#m-fewstepgrpo">FewStepGRPO</a></td><td>\(M_{\mathrm{step}}\)</td><td>1</td><td>1</td><td>2</td><td>—</td><td>1</td><td>—</td></tr>
+      <tr class="grp"><td><a href="#m-meanflowawm">MeanFlowAWM</a></td><td>\(n_{\mathrm{ts}}\)</td><td>1</td><td>1</td><td>2</td><td>—</td><td>1</td><td>—</td></tr>
+      <tr class="grp"><td><a href="#m-dmdawm">DMDAWM</a></td><td>\(n_{\mathrm{ts}}\)</td><td>1</td><td>1</td><td>0</td><td>1</td><td>1</td><td>\(n_{\mathrm{fm}}\) forwards and backwards of \(v_\phi\)</td></tr>
+      <tr class="grp"><td><a href="#m-meanflownft">MeanFlowNFT</a></td><td>\(n_{\mathrm{ts}}\)</td><td>1</td><td>1</td><td>2</td><td>—</td><td>1</td><td>—</td></tr>
+      <tr class="grp"><td><a href="#m-dmdnft">DMDNFT</a></td><td>\(n_{\mathrm{ts}}\)</td><td>1</td><td>1</td><td>0</td><td>1</td><td>1</td><td>\(n_{\mathrm{fm}}\) forwards and backwards of \(v_\phi\)</td></tr>
+      <tr class="rg"><td><a href="#m-fewstepopsd">FewStepOPSD</a></td><td>1</td><td>1</td><td>1</td><td>0†</td><td>—</td><td>1</td><td>\(2M_{\mathrm{tgt}}\) reward backwards</td></tr>
+      <tr class="rg"><td><a href="#m-refl">ReFL</a></td><td>1</td><td>1</td><td>1</td><td>0†</td><td>—</td><td>1</td><td>1 reward backward</td></tr>
+    </tbody></table></div>
+  <p class="note">† J dropped because it cancels, which leaves the loss and its gradient unchanged (App. C). Cost of one outer iteration: \(C=C_{\mathrm{rollout}}+c_{\mathrm{extra}}+n_{\mathrm{it}}(c_\theta+c_{\mathrm{old}}+c_J+c_\phi+c_{\mathrm{ref}})\).</p>
+  <div class="pager"></div>
+</section>
+
+<!-- method pages are generated from js/methods.js into this container -->
+<div id="method-pages"></div>
+
+<!-- =================================================================== EXP MIX -->
+<section class="page" id="p-exp-mix" data-title="Image · mixed reward">
+  <div class="kicker">Experiments · I</div>
+  <h1>Images: a differentiable mixed reward</h1>
+  <p class="lead">SD3.5-Medium distilled with AnyFlow, fine-tuned on CLIPScore + HPSv2 + PickScore. The reward is differentiable, so all seven trainers apply. <span class="src">§6.1, §6.3</span></p>
+  <div class="callout"><b>Setup.</b> LoRA rank 32 on the attention projections, 512×512, \(M_{\mathrm{step}}=4\) on the grid {1, 0.9, 0.75, 0.5, 0}, no CFG. Each outer iteration: 48 prompts × K = 24 members = 1152 rollouts on 8 H20 GPUs; AdamW, lr \(3\times10^{-6}\). Held-out evaluators: aesthetic score, OCR accuracy, HPSv3, ImageReward and GenEval2 (Soft-TIFA, ~0.03 resolution). Single run per method.</div>
+
+  <h2>Results at iteration 400 <span class="src">Tab. 6(b)</span></h2>
+  <div class="table-wrap"><table class="data" id="tab-6b"></table></div>
+  <p class="note">Click a column to sort. Bold as in the paper: best among the trained methods per comparable column. "h": wall-clock hours to iteration 400 on 8 GPUs; GenEval2 best with its iteration; GenEval2 has a resolution of about 0.03.</p>
+
+  <div class="chart-card" id="chart-mix">
+    <div class="chart-head"><h4>Learning curves <span class="src">Fig. 4</span></h4><div class="seg" data-metrics></div></div>
+    <div data-svg></div><div class="legend" data-legend></div>
+    <p class="note">Online evaluation every 50 iterations (training reward, HPSv2, PickScore, CLIPScore, aesthetic, OCR on DrawBench / OCR prompts); offline evaluation at saved checkpoints every 100 iterations (HPSv3, ImageReward on 256 images, seed 12345; GenEval2 on its own prompts). Iteration 0 is the shared AnyFlow init. Data: the training-log table the paper figure is plotted from.</p>
+  </div>
+
+  <h2>What the numbers say <span class="src">§6.3</span></h2>
+  <ol class="prose">
+    <li><b>Adaptation is necessary.</b> FewStepGRPO raises the training reward from 1.450 to 1.461 and HPSv3 from 10.30 to 11.58, whereas FlowGRPO with the average velocity substituted leaves the reward at 1.438 and lowers HPSv3 to 9.62. MeanFlowNFT reaches 1.509 against 1.440 for DiffusionNFT, and is higher on HPSv3 (13.23 vs. 11.79), ImageReward (1.385 vs. 1.317) and best GenEval2 (0.411 vs. 0.399, within resolution).</li>
+    <li><b>Reward gradient wins where it exists.</b> FewStepOPSD and ReFL raise the training reward to 1.64 and 1.62 against 1.46–1.52 for the five group-advantage methods, and also lead on ImageReward and GenEval2. DMDNFT and MeanFlowNFT come next (1.51–1.52, GenEval2 0.41 at iteration 400).</li>
+    <li><b>CLIPScore moves only with \(\nabla R\).</b> None of the five group-advantage runs increases CLIPScore (0.289 → 0.279–0.285), whereas FewStepOPSD and ReFL raise it to 0.317–0.322.</li>
+  </ol>
+
+  <h2>Cost of one iteration <span class="src">Tab. 7</span></h2>
+  <div class="chart-card" id="chart-time"><div data-svg></div>
+    <p class="note">Medians over the timers in the training logs, 8 H20 GPUs. The reward-gradient methods are cheapest per iteration (one query of \(u_\theta\) instead of four, and \(J\) cancels), but their sampling includes back-propagation through the reward model and the VAE decoder (175–225 s vs. ~78 s). The shared-\(J\) v-form (FewStepGRPO, MeanFlowAWM, MeanFlowNFT) pays two extra forwards of \(u_{\mathrm{old}}\) per query: 423–435 s vs. 304–326 s for DMDAWM and DMDNFT.</p></div>
+
+  <h2>Same prompt, same noise, nine models</h2>
+  <figure class="card" style="margin:12px 0;padding:10px"><img src="assets/fig/compare_trainers.webp" alt="Same prompt and seed across SD3.5-M, AnyFlow init and seven trainers" loading="lazy" data-zoom></figure>
+  <p class="note">Released checkpoints, 512², shared prompt and seed per row (prompts curated, seeds not picked per method); held-out ImageReward under each image. DMDAWM samples carry a faint 16-px latent-patch lattice; its column is shown after a Gaussian blur (σ = 2 px) and its ImageReward is recomputed on the blurred images. SD3.5-M uses its default 40 steps + CFG for reference.</p>
+  <div class="pager"></div>
+</section>
+
+<!-- =================================================================== EXP OCR -->
+<section class="page" id="p-exp-ocr" data-title="Image · OCR reward">
+  <div class="kicker">Experiments · II</div>
+  <h1>Images: a non-differentiable OCR reward</h1>
+  <p class="lead">The reward is the OCR accuracy of the text rendered in the image. It has no gradient with respect to the clean sample, so FewStepOPSD and ReFL do not apply and the five group-advantage trainers compete. <span class="src">§6.1, §6.3</span></p>
+
+  <h2>OCR accuracy within 200 iterations <span class="src">Tab. 6(a)</span></h2>
+  <div class="table-wrap"><table class="data" id="tab-6a"></table></div>
+  <p class="note">Left: s/iter, OCR accuracy (online) at four iterations, and the first evaluated iteration with OCR ≥ 0.85 with the wall-clock hours to reach it. Right: OCR and held-out evaluators at the first saved checkpoint whose OCR accuracy exceeds 0.82; FewStepGRPO and MeanFlowAWM do not cross it within 200 iterations. Bold as in the paper; at iteration 200 MeanFlowNFT and DMDAWM are indistinguishable at the curve's resolution (about ±0.01) and both are bold.</p>
+
+  <div class="chart-card" id="chart-ocr">
+    <div class="chart-head"><h4>Learning curves <span class="src">Fig. 3</span></h4><div class="seg" data-metrics></div></div>
+    <div data-svg></div><div class="legend" data-legend></div>
+    <p class="note">Online every 50 iterations on the OCR prompts; HPSv3, ImageReward offline at checkpoints every 100; GenEval2 on its own prompts. Curves show the logged values the paper's figure is plotted from; several entries of Tab. 6(a) are read from this curve and agree to about ±0.01.</p>
+  </div>
+
+  <h2>Fast reward gains come with held-out degradation</h2>
+  <div class="prose">
+    <p>DMDAWM, MeanFlowNFT and DMDNFT raise OCR accuracy from 0.498 to above 0.85 within 100–150 iterations; MeanFlowAWM and FewStepGRPO reach 0.802 and 0.776 at iteration 200. MeanFlowNFT reaches the highest OCR within the horizon (about 0.945 at iteration 150). DMDAWM rises steeply after iteration 50 — it has no self-regression and its baseline \(\tilde x_{\mathrm{aux}}\) follows the policy — and this coincides with the largest held-out degradation: HPSv3 12.86 → 5.05 and ImageReward 1.233 → 0.092 at its first checkpoint above OCR 0.82. <span class="src">§6.3</span></p>
+  </div>
+
+  <h2>Before / after: rendering “FewStepRL”</h2>
+  <div class="fig" id="fig-ba">
+    <div class="chips" data-prompts></div>
+    <div class="chips" data-trainers></div>
+    <div class="fig-grid" style="grid-template-columns:minmax(0,520px) 1fr">
+      <div class="ba" data-ba><img alt="AnyFlow init"><img class="after" alt="trainer"><div class="bar"></div><span class="tag l">AnyFlow init</span><span class="tag r" data-rtag></span></div>
+      <div><div class="readout" data-readout></div>
+        <p class="caption">Drag across the image. Each trainer is shown at an early checkpoint of its released run with training-time OCR accuracy 0.82–0.88 (FewStepGRPO, which peaks at 0.78, at its released checkpoint), before the late-stage reward hacking. OCR = PP-OCRv5 accuracy on the quoted word for this image. Same prompt and seed for all.</p></div>
+    </div>
+  </div>
+  <figure class="card" style="margin:12px 0;padding:10px"><img src="assets/fig/compare_ocr.webp" alt="OCR-reward trainers rendering FewStepRL" loading="lazy" data-zoom></figure>
+  <div class="pager"></div>
+</section>
+
+<!-- =================================================================== EXP VIDEO -->
+<section class="page" id="p-exp-video" data-title="Video · Wan2.1">
+  <div class="kicker">Experiments · III</div>
+  <h1>Video: Wan2.1-T2V-1.3B</h1>
+  <p class="lead">The same seven trainers on a 4-step AnyFlow-distilled Wan2.1-T2V-1.3B at 480×832 and 81 frames. Only part of the video reward is differentiable, which limits the reward-gradient methods. <span class="src">§6.2, §6.4</span></p>
+  <div class="callout"><b>Setup.</b> LoRA rank 32; 2048 rollouts per outer iteration on 32 H20 GPUs (FewStepOPSD and ReFL: 48 GPUs, 3072 rollouts, so not sample-budget-matched). Training reward: HPSv3-general + HPSv3-percentile + VideoAlign motion quality (MQ) + text alignment (TA); only HPSv3 (96% of the aggregate under the z-normalised weights) is differentiable. Held out: VBench, 946 prompts × 5 samples = 4730 videos per method, at iteration 250.</div>
+
+  <h2>Results at iteration 250 <span class="src">Tab. 8</span></h2>
+  <div class="table-wrap"><table class="data" id="tab-8"></table></div>
+  <p class="note">GPU-h = GPUs × s/iter × 250 / 3600 is the comparable cost; s/iter is compared only among the 32-GPU rows. The four reward components are raw scorer outputs; the sum uses the logged z-scores for MQ and TA. Bold as in the paper.</p>
+
+  <h2>Same prompt, same noise: eight models in sync</h2>
+  <div class="fig" id="fig-vgrid">
+    <div class="chips" data-prompts></div>
+    <p class="note" data-prompt-text></p>
+    <div class="vgrid" data-grid></div>
+    <div class="vctl"><button data-play>❚❚ Pause</button><input type="range" min="0" max="1000" value="0" data-scrub><span data-time>0.0 s</span></div>
+    <p class="caption">AnyFlow init and seven trainers, same prompt and seed, 4 steps, no CFG; one master clock keeps all eight players on the same frame. Every trainer starts from the same policy and reward. The dolphin clip was picked from 436 clips for a large difference across trainers: the median over the seven trainers of the mean pixel difference to the AnyFlow clip is 17.3 (0–255 scale), against 7.2 for the median clip; on typical prompts the clips differ mostly in detail. DMDNFT moves furthest from the initialization, MeanFlowAWM and ReFL stay closest.</p>
+  </div>
+
+  <h2>Held-out VBench, dimension by dimension <span class="src">Tab. S2</span></h2>
+  <div class="chart-card" id="chart-vbench"><div class="chart-head"><h4>Normalised VBench dimensions at iteration 250</h4><div class="seg" data-groups></div></div><div data-svg></div><div class="legend" data-legend></div>
+    <p class="note">Each row is one dimension; each dot one trainer. Only dynamic degree (spread 6.29) and multiple objects (2.95) separate the methods by more than 2.6 points; VBench overall spans only 0.32 points (83.38–83.70).</p></div>
+
+  <h2>What the numbers say <span class="src">§6.4</span></h2>
+  <ol class="prose">
+    <li><b>FewStepGRPO is the least effective</b>: the only group-advantage method that ends below the shared initialisation (15.89 vs. 16.54), with TA dropping from 1.85 to 1.23.</li>
+    <li><b>DMDNFT is the most effective on the training reward</b> (17.93, +1.39, leading three of four terms), and its gain coincides with larger held-out degradation: VBench overall 83.38 (last of seven) and dynamic degree 53.33 (lowest), against 83.70 and 58.89 for MeanFlowAWM, the best on VBench.</li>
+    <li><b>FewStepOPSD and ReFL gain the least reward after FewStepGRPO</b> (16.26, 16.46): the video reward gradient needs several numerical simplifications (HPSv3-only gradient, fp32 reward model, 21 of 81 frames decoded one latent frame at a time). TA rises above the initialisation (1.91, 1.89); ReFL is second on VBench overall (83.69).</li>
+    <li><b>The cost ordering flips.</b> On video the DMD-based methods are slower than their MeanFlow counterparts (821 vs. 734–737 s/iter): fitting \(v_\phi\) costs about 144 s per iteration, more than the ~60 s saved on \(J\). The reward-gradient methods are the two most expensive in GPU-hours.</li>
+  </ol>
+
+  <h2>4 steps vs. 50 steps (illustration)</h2>
+  <div class="card" style="padding:10px"><video controls muted loop playsinline preload="none" poster="assets/video/compare_steps.webp" src="assets/video/compare_steps.mp4" style="width:100%;border-radius:8px"></video></div>
+  <p class="note">Left: original Wan2.1-T2V-1.3B with 50 steps and CFG 5.0 (100 network evaluations); right: MeanFlowAWM, MeanFlowNFT and DMDNFT with 4 steps, ordered by mean pixel difference to the AnyFlow clip over 240 clips (3.4, 11.6, 24.7). Clips selected for a large difference of MeanFlowNFT and DMDNFT from AnyFlow; on average it is smaller. The paper does not evaluate the 50-step model.</p>
+  <div class="pager"></div>
+</section>
+
+<!-- =================================================================== EXP TTS -->
+<section class="page" id="p-exp-tts" data-title="Test-time scaling">
+  <div class="kicker">Experiments · IV</div>
+  <h1>Does a 4-step model improve with more steps?</h1>
+  <p class="lead">Each fine-tuned checkpoint is sampled at \(M_{\mathrm{step}}\in\{4,8,16,32\}\) on the same shifted grid, 256 DrawBench prompts, seed 12345, no retraining. References: the AnyFlow init and SD3.5-Medium with CFG 4.5. <span class="src">§6.5</span></p>
+  <div class="chart-card" id="chart-tts">
+    <div class="chart-head"><h4>Absolute value against the number of sampling steps <span class="src">Fig. 7</span></h4><div class="seg" data-metrics></div></div>
+    <div data-svg></div><div class="legend" data-legend></div>
+    <p class="note">Dashed: AnyFlow init. Dotted: SD3.5-Medium (instantaneous velocity, Euler + CFG, two evaluations per step). For the fine-tuned models GenEval2 changes stay within its ~0.03 resolution; the AnyFlow init drops beyond it (0.363 → 0.320).</p>
+  </div>
+  <h2>Four conclusions <span class="src">§6.5</span></h2>
+  <ol class="prose">
+    <li><b>Different training stages scale differently.</b> SD3.5-Medium rises sharply from 4 to 8 steps (HPSv3 −4.49 → 9.96 by 32 steps) yet even at 32 steps (64 evaluations) stays below every fine-tuned 4-step model on HPSv3, ImageReward, aesthetic, HPSv2 and PickScore. The AnyFlow init degrades with more steps (ImageReward 1.11 → 1.02, GenEval2 0.363 → 0.320).</li>
+    <li><b>No systematic gain on the training reward.</b> From 4 to 32 steps HPSv3 changes by +1.0% to −6.8% for six of seven trainers, against −17% for the AnyFlow init, which suggests that the decline is inherited from the initialisation rather than introduced by RL.</li>
+    <li><b>OCR-sensitive prompts expose a sharper failure.</b> Selected DMDNFT and MeanFlowNFT samples collapse at 32 steps to little more than foreground text (HPSv3 12.18 → 0.32 and 11.36 → 0.32) while CLIPScore rises.</li>
+    <li><b>Visible sample-level scaling exists.</b> Many samples look cleaner with 2–4× the training step count, although the aggregate rewards barely change.</li>
+  </ol>
+  <div class="table-wrap"><table class="data" id="tab-S3"></table></div>
+  <p class="note">Paper Tab. S3: HPSv3 at each step count and the % change of every dimension from 4 to 32 steps. "it.": the checkpoint used.</p>
+  <div class="pager"></div>
+</section>
+
+<!-- =================================================================== GUIDANCE -->
+<section class="page" id="p-guidance" data-title="Practical guidance">
+  <div class="kicker">Experiments · V</div>
+  <h1>Which trainer should I use?</h1>
+  <p class="lead">Guidance distilled from the experiments, each from a single run. Answer two questions to get the paper's recommendation. <span class="src">§6.6</span></p>
+  <div class="tree" id="tree"></div>
+  <h2>Open problems <span class="src">§7</span></h2>
+  <ol class="prose">
+    <li>DMD-based variants need extra forward and backward passes and memory for \(v_\phi\); how to reduce this overhead is open.</li>
+    <li>Reward-gradient methods need a differentiable reward and a gradient that fits in memory; on video, MQ and TA give no gradient and per-frame decoding makes the gradient deviate from a joint decode.</li>
+    <li>With a scalar group advantage, whether every reward summand takes effect depends on summand weighting, the global-batch standard deviation and small within-group spreads.</li>
+    <li>A model fine-tuned at one step count does not improve systematically with more steps; how to obtain test-time scaling cheaply remains open.</li>
+  </ol>
+  <div class="pager"></div>
+</section>
+
+<!-- =================================================================== GALLERY -->
+<section class="page" id="p-gallery" data-title="Gallery">
+  <div class="kicker">Gallery</div>
+  <h1>4 steps, no CFG</h1>
+  <p class="lead">Images (SD3.5-Medium, 512²) and videos (Wan2.1-T2V-1.3B, 81 frames) from the released FewStepRL checkpoints. Hover a strip to stop it and reveal the true colours; click a frame for its trainer, prompt and seed.</p>
+  <div class="filmstrip" data-film="images-a" style="--h:190px;--dur:120s"></div>
+  <div class="filmstrip reverse" data-film="videos" style="--h:170px;--dur:100s"></div>
+  <div class="filmstrip" data-film="images-b" style="--h:190px;--dur:115s"></div>
+  <div class="filmstrip reverse" data-film="posters" style="--h:190px;--dur:60s"></div>
+  <p class="note">Prompts were curated; per prompt the seed was chosen among 8 with the paper's reward models and visual inspection. Image frames come from the four trainers whose samples are free of the faint 16-px latent-patch lattice (DMDNFT, MeanFlowNFT, MeanFlowAWM, FewStepGRPO); video frames cover all seven trainers. The text in the last strip — “FewStepRL” and “Hunyuan” — is rendered by the models themselves.</p>
+  <div class="pager"></div>
+</section>
+
+<!-- =================================================================== CITE -->
+<section class="page" id="p-cite" data-title="Code &amp; citation">
+  <div class="kicker">Code &amp; citation</div>
+  <h1>Code, checkpoints and citation</h1>
+  <div class="repo-cards">
+    <div class="card"><h3 style="margin-top:0">fewsteprl-sd35</h3><p>Image code: SD3.5-Medium + AnyFlow Stage-1/2 LoRAs; one Stage-3 LoRA per experiment; mixed and OCR rewards; GenEval2 / HPSv3 / ImageReward evaluation.</p>
+      <pre class="code">bash scripts/train/meanflownft_mix.sh 8
+python inference.py scripts/eval/configs/sample_sd35m_fewstep.yaml \
+  --prompt "..." --override num_stages=3 \
+  stage3_lora_path=checkpoints/meanflownft_mix/checkpoint-400/generator_ema.pt</pre>
+      <a class="btn" href="coming-soon.html" data-todo="sd35-url">Repository (coming soon)</a></div>
+    <div class="card"><h3 style="margin-top:0">fewsteprl-wan21</h3><p>Video code: AnyFlow-Wan2.1-T2V-1.3B; HPSv3 + VideoAlign rewards; VBench evaluation; seven released checkpoints at iteration 250.</p>
+      <pre class="code">python inference.py scripts/eval/configs/sample_wan.yaml \
+  --prompt "..." --override mode=meanflow_nft \
+  meanflow_nft_path=checkpoints/dmdnft/checkpoint-250/generator_ema.pt</pre>
+      <a class="btn" href="coming-soon.html" data-todo="wan-url">Repository (coming soon)</a></div>
+  </div>
+  <h2>Released checkpoints</h2>
+  <div class="table-wrap"><table class="data ckpts">
+    <thead><tr><th class="nosort" rowspan="2">trainer</th><th class="nosort" colspan="2">image · <code>fewsteprl-sd35</code> (SD3.5-Medium)</th><th class="nosort">video · <code>fewsteprl-wan21</code></th></tr>
+      <tr><th class="nosort">mixed reward</th><th class="nosort">OCR reward</th><th class="nosort">HPSv3 + VideoAlign</th></tr></thead>
+    <tbody>
+      <tr class="grp"><td>FewStepGRPO</td><td><code>fewstepgrpo_mix</code> · 300</td><td><code>fewstepgrpo_ocr</code> · 200</td><td><code>fewstepgrpo</code> · 250</td></tr>
+      <tr class="grp"><td>MeanFlowAWM</td><td><code>meanflowawm_mix</code> · 400</td><td><code>meanflowawm_ocr</code> · 400</td><td><code>meanflowawm</code> · 250</td></tr>
+      <tr class="grp"><td>DMDAWM</td><td><code>dmdawm_mix</code> · 400</td><td><code>dmdawm_ocr</code> · 400</td><td><code>dmdawm</code> · 250</td></tr>
+      <tr class="grp"><td>MeanFlowNFT</td><td><code>meanflownft_mix</code> · 400</td><td><code>meanflownft_ocr</code> · 200</td><td><code>meanflownft</code> · 250</td></tr>
+      <tr class="grp"><td>DMDNFT</td><td><code>dmdnft_mix</code> · 400</td><td><code>dmdnft_ocr</code> · 200</td><td><code>dmdnft</code> · 250</td></tr>
+      <tr class="rg"><td>FewStepOPSD</td><td><code>meanflowopsd_mix</code> · 400</td><td>— (no gradient)</td><td><code>meanflowopsd</code> · 250</td></tr>
+      <tr class="rg"><td>ReFL</td><td><code>reflmx_mix</code> · 400</td><td>— (no gradient)</td><td><code>reflmx</code> · 250</td></tr>
+      <tr class="base"><td>original objectives<span class="muted small"> (Fig. 1 baselines)</span></td><td><code>flowgrpo_mix</code>, <code>awm_mix</code>, <code>nft_mix</code> · 400</td><td>—</td><td>—</td></tr>
+    </tbody></table></div>
+  <p class="note">Each entry is <code>checkpoints/&lt;arm&gt;/checkpoint-&lt;step&gt;/generator_ema.pt</code> (EMA Stage-3 LoRA, <a href="coming-soon.html">coming soon</a> on Hugging Face; SHA-256 in <code>checkpoints/SHA256SUMS</code>) in the repository named in the column header. Image LoRAs (≈ 43 MB) apply on top of SD3.5-Medium + the AnyFlow Stage-1/2 LoRAs; the DMD auxiliary velocity networks are in <code>checkpoints/aux_vel</code>. Video LoRAs (≈ 93 MB) apply on top of AnyFlow-Wan2.1-T2V-1.3B (non-commercial licence) and are all at iteration 250, the iteration of Tab. 8. The paper's image tables report fixed iterations (400 for mixed reward, ≤ 200 for OCR). Every sample on this page comes from these checkpoints.</p>
+  <h2>BibTeX</h2>
+  <pre class="bib" id="bibtex">@misc{lin2026fewsteprl,
+  title  = {FewStepRL: Fine-tuning Few-step Diffusion Models with Reinforcement Learning},
+  author = {Lin, Haitao and Ren, Minsi and Li, Yang and Ge, Xingtong and
+            Hu, Zheyuan and Hu, Peiyan and Ma, Zhiming and Wu, Tailin},
+  year   = {2026}
+}</pre>
+  <button class="btn" id="copy-bib">Copy BibTeX</button>
+  <h2>Acknowledgements</h2>
+  <p class="prose">Built on <a href="https://github.com/NVlabs/AnyFlow">AnyFlow</a>, <a href="https://github.com/Gsunshine/meanflow">MeanFlow</a>, <a href="https://github.com/NVlabs/DiffusionNFT">DiffusionNFT</a>, <a href="https://github.com/ModelTC/VideoAlign">VideoAlign</a>, <a href="https://github.com/MizzenAI/HPSv3">HPSv3</a>, <a href="https://github.com/Vchitect/VBench">VBench</a>, <a href="https://github.com/huggingface/diffusers">diffusers</a> and <a href="https://github.com/huggingface/peft">peft</a>. AnyFlow-Wan and the reward models are under their own licenses.</p>
+  <div class="pager"></div>
+</section>
+
+</main>
+
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true"><button class="close" aria-label="Close">×</button><div class="box"><div class="media"></div><div class="meta"></div></div></div>
+<div class="tip" id="tip"></div>
+
+<script src="vendor/katex/katex.min.js"></script>
+<script src="vendor/katex/contrib/auto-render.min.js"></script>
+<script src="js/charts.js"></script>
+<script src="js/figures.js"></script>
+<script src="js/methods.js"></script>
+<script src="data/narration.js"></script>
+<script src="js/explainer.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>

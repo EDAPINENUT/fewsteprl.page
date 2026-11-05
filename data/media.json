@@ -1,0 +1,1503 @@
+{
+ "gallery": {
+  "images": [
+   {
+    "src": "assets/gallery/img_00.webp",
+    "full": "assets/gallery/img_00_l.webp",
+    "trainer": "DMDNFT",
+    "prompt": "A giant glowing tree of life on a floating island at night, bioluminescent leaves, fireflies, a starry galaxy behind it, magical atmosphere.",
+    "seed": 1,
+    "cat": "fantasy",
+    "source": "sd35_fancy/dmdnft_mix/f_tree_of_life_s1.png",
+    "kind": "image",
+    "ckpt": "checkpoints/dmdnft_mix/checkpoint-400/generator_ema.pt"
+   },
+   {
+    "src": "assets/gallery/img_01.webp",
+    "full": "assets/gallery/img_01_l.webp",
+    "trainer": "DMDNFT",
+    "prompt": "A Bengal tiger walking through shallow water in a misty jungle at golden hour, splashes frozen in motion, wildlife photography, ultra sharp.",
+    "seed": 2,
+    "cat": "animal",
+    "source": "sd35_fancy/dmdnft_mix/a_tiger_water_s2.png",
+    "kind": "image",
+    "ckpt": "checkpoints/dmdnft_mix/checkpoint-400/generator_ema.pt"
+   },
+   {
+    "src": "assets/gallery/img_02.webp",
+    "full": "assets/gallery/img_02_l.webp",
+    "trainer": "MeanFlowAWM",
+    "prompt": "A close-up portrait of a beautiful cyborg woman with intricate porcelain and gold mechanical details on her face, soft studio light, hyperrealistic.",
+    "seed": 5,
+    "cat": "scifi",
+    "source": "sd35_fancy/meanflowawm_mix/s_cyborg_portrait_s5.png",
+    "kind": "image",
+    "ckpt": "checkpoints/meanflowawm_mix/checkpoint-400/generator_ema.pt"
+   },
+   {
+    "src": "assets/gallery/img_03.webp",
+    "full": "assets/gallery/img_03_l.webp",
+    "trainer": "DMDNFT",
+    "prompt": "A woman in a flowing golden silk dress standing on a sand dune as the wind lifts the fabric into the sky, epic fashion photography at sunset.",
+    "seed": 6,
+    "cat": "people",
+    "source": "sd35_fancy/dmdnft_mix/p_desert_dress_s6.png",
+    "kind": "image",
+    "ckpt": "checkpoints/dmdnft_mix/checkpoint-400/generator_ema.pt"
+   },
+   {
+    "src": "assets/gallery/img_04.webp",
+    "full": "assets/gallery/img_04_l.webp",
+    "trainer": "MeanFlowNFT",
+    "prompt": "A young monk in orange robes walking up ancient stone stairs to a mountain temple in the clouds, cinematic travel photography.",
+    "seed": 6,
+    "cat": "people",
+    "source": "sd35_fancy/meanflownft_mix/p_monk_temple_s6.png",
+    "kind": "image",
+    "ckpt": "checkpoints/meanflownft_mix/checkpoint-400/generator_ema.pt"
+   },
+   {
+    "src": "assets/gallery/img_05.webp",
+    "full": "assets/gallery/img_05_l.webp",
+    "trainer": "MeanFlowNFT",
+    "prompt": "A snowy owl in flight with wings fully spread against falling snow, piercing yellow eyes, award-winning wildlife photograph.",
+    "seed": 1,
+    "cat": "animal",
+    "source": "sd35_fancy/meanflownft_mix/a_owl_snow_s1.png",
+    "kind": "image",
+    "ckpt": "checkpoints/meanflownft_mix/checkpoint-400/generator_ema.pt"
+   },
+   {
+    "src": "assets/gallery/img_06.webp",
+    "full": "assets/gallery/img_06_l.webp",
+    "trainer": "DMDNFT",
+    "prompt": "A vibrant octopus with glowing patterns curling its tentacles around a coral reef, sunbeams from the surface, underwater photography.",
+    "seed": 6,
+    "cat": "animal",
+    "source": "sd35_fancy/dmdnft_mix/a_octopus_s6.png",
+    "kind": "image",
+    "ckpt": "checkpoints/dmdnft_mix/checkpoint-400/generator_ema.pt"
+   },
+   {
+    "src": "assets/gallery/img_07.webp",
+    "full": "assets/gallery/img_07_l.webp",
+    "trainer": "DMDNFT",
+    "prompt": "A breathtaking futuristic megacity at night with flying cars, holographic billboards and neon skyscrapers piercing the clouds, cyberpunk masterpiece.",
+    "seed": 2,
+    "cat": "scifi",
+    "source": "sd35_fancy/dmdnft_mix/s_neo_tokyo_s2.png",
+    "kind": "image",
+    "ckpt": "checkpoints/dmdnft_mix/checkpoint-400/generator_ema.pt"
+   },
+   {
+    "src": "assets/gallery/img_08.webp",
+    "full": "assets/gallery/img_08_l.webp",
+    "trainer": "DMDNFT",
+    "prompt": "A lone explorer with a lantern standing inside a gigantic cave of glowing purple and teal crystals, reflections on an underground lake, breathtaking scale.",
+    "seed": 0,
+    "cat": "fantasy",
+    "source": "sd35_fancy/dmdnft_mix/f_crystal_cave_s0.png",
+    "kind": "image",
+    "ckpt": "checkpoints/dmdnft_mix/checkpoint-400/generator_ema.pt"
+   },
+   {
+    "src": "assets/gallery/img_09.webp",
+    "full": "assets/gallery/img_09_l.webp",
+    "trainer": "MeanFlowNFT",
+    "prompt": "A giant mech samurai with glowing red visor kneeling in a field of cherry blossoms, petals swirling in the wind, cinematic sci-fi art.",
+    "seed": 7,
+    "cat": "scifi",
+    "source": "sd35_fancy/meanflownft_mix/s_mech_samurai_s7.png",
+    "kind": "image",
+    "ckpt": "checkpoints/meanflownft_mix/checkpoint-400/generator_ema.pt"
+   },
+   {
+    "src": "assets/gallery/img_10.webp",
+    "full": "assets/gallery/img_10_l.webp",
+    "trainer": "FewStepGRPO",
+    "prompt": "A translucent jellyfish whose bell contains a tiny swirling galaxy, floating in the dark ocean, surreal glowing art.",
+    "seed": 7,
+    "cat": "animal",
+    "source": "sd35_fancy/fewstepgrpo_mix/a_jelly_galaxy_s7.png",
+    "kind": "image",
+    "ckpt": "checkpoints/fewstepgrpo_mix/checkpoint-300/generator_ema.pt"
+   },
+   {
+    "src": "assets/gallery/img_11.webp",
+    "full": "assets/gallery/img_11_l.webp",
+    "trainer": "MeanFlowNFT",
+    "prompt": "A black stallion galloping along the shoreline at sunset, mane flying, water splashing, golden backlight, cinematic photography.",
+    "seed": 1,
+    "cat": "animal",
+    "source": "sd35_fancy/meanflownft_mix/a_horse_beach_s1.png",
+    "kind": "image",
+    "ckpt": "checkpoints/meanflownft_mix/checkpoint-400/generator_ema.pt"
+   },
+   {
+    "src": "assets/gallery/img_12.webp",
+    "full": "assets/gallery/img_12_l.webp",
+    "trainer": "DMDNFT",
+    "prompt": "A fairytale castle growing out of the pages of an open old book, tiny glowing windows, magical dust, surreal photography.",
+    "seed": 0,
+    "cat": "surreal",
+    "source": "sd35_fancy/dmdnft_mix/x_book_castle_s0.png",
+    "kind": "image",
+    "ckpt": "checkpoints/dmdnft_mix/checkpoint-400/generator_ema.pt"
+   },
+   {
+    "src": "assets/gallery/img_13.webp",
+    "full": "assets/gallery/img_13_l.webp",
+    "trainer": "MeanFlowNFT",
+    "prompt": "A small train crossing a sea at sunset with clouds reflected in the water, Studio Ghibli anime style, beautiful painted background.",
+    "seed": 6,
+    "cat": "art",
+    "source": "sd35_fancy/meanflownft_mix/r_ghibli_train_s6.png",
+    "kind": "image",
+    "ckpt": "checkpoints/meanflownft_mix/checkpoint-400/generator_ema.pt"
+   },
+   {
+    "src": "assets/gallery/img_14.webp",
+    "full": "assets/gallery/img_14_l.webp",
+    "trainer": "DMDNFT",
+    "prompt": "A molten chocolate lava cake with vanilla ice cream and fresh raspberries, chocolate flowing out, close-up dessert photography.",
+    "seed": 5,
+    "cat": "object",
+    "source": "sd35_fancy/dmdnft_mix/o_lava_cake_s5.png",
+    "kind": "image",
+    "ckpt": "checkpoints/dmdnft_mix/checkpoint-400/generator_ema.pt"
+   },
+   {
+    "src": "assets/gallery/img_15.webp",
+    "full": "assets/gallery/img_15_l.webp",
+    "trainer": "DMDNFT",
+    "prompt": "A luxury mechanical watch with an open skeleton dial showing intricate golden gears, dramatic studio lighting on black, product photography.",
+    "seed": 1,
+    "cat": "object",
+    "source": "sd35_fancy/dmdnft_mix/o_watch_s1.png",
+    "kind": "image",
+    "ckpt": "checkpoints/dmdnft_mix/checkpoint-400/generator_ema.pt"
+   },
+   {
+    "src": "assets/gallery/img_16.webp",
+    "full": "assets/gallery/img_16_l.webp",
+    "trainer": "DMDNFT",
+    "prompt": "A white peacock displaying its magnificent tail feathers in a sunlit garden, delicate lace-like plumage, bokeh, elegant photography.",
+    "seed": 3,
+    "cat": "animal",
+    "source": "sd35_fancy/dmdnft_mix/a_peacock_s3.png",
+    "kind": "image",
+    "ckpt": "checkpoints/dmdnft_mix/checkpoint-400/generator_ema.pt"
+   },
+   {
+    "src": "assets/gallery/img_17.webp",
+    "full": "assets/gallery/img_17_l.webp",
+    "trainer": "DMDNFT",
+    "prompt": "A glowing light bulb containing a tiny thriving forest and a waterfall, on a dark wooden table, surreal macro photography.",
+    "seed": 7,
+    "cat": "surreal",
+    "source": "sd35_fancy/dmdnft_mix/x_lightbulb_world_s7.png",
+    "kind": "image",
+    "ckpt": "checkpoints/dmdnft_mix/checkpoint-400/generator_ema.pt"
+   },
+   {
+    "src": "assets/gallery/img_18.webp",
+    "full": "assets/gallery/img_18_l.webp",
+    "trainer": "DMDNFT",
+    "prompt": "A tiny ruby-throated hummingbird hovering next to a glowing pink orchid, wings in motion, macro photography, dark green background.",
+    "seed": 5,
+    "cat": "animal",
+    "source": "sd35_fancy/dmdnft_mix/a_hummingbird_fl_s5.png",
+    "kind": "image",
+    "ckpt": "checkpoints/dmdnft_mix/checkpoint-400/generator_ema.pt"
+   },
+   {
+    "src": "assets/gallery/img_19.webp",
+    "full": "assets/gallery/img_19_l.webp",
+    "trainer": "FewStepGRPO",
+    "prompt": "A surfer riding inside the barrel of a giant turquoise wave, sunlight shining through the water, action sports photography.",
+    "seed": 0,
+    "cat": "people",
+    "source": "sd35_fancy/fewstepgrpo_mix/p_surfer_wave_s0.png",
+    "kind": "image",
+    "ckpt": "checkpoints/fewstepgrpo_mix/checkpoint-300/generator_ema.pt"
+   },
+   {
+    "src": "assets/gallery/img_20.webp",
+    "full": "assets/gallery/img_20_l.webp",
+    "trainer": "MeanFlowAWM",
+    "prompt": "A cute red fox wearing a knitted scarf sipping tea at a tiny table in an autumn forest, falling leaves, storybook illustration.",
+    "seed": 5,
+    "cat": "animal",
+    "source": "sd35_fancy/meanflowawm_mix/a_fox_tea_s5.png",
+    "kind": "image",
+    "ckpt": "checkpoints/meanflowawm_mix/checkpoint-400/generator_ema.pt"
+   },
+   {
+    "src": "assets/gallery/img_21.webp",
+    "full": "assets/gallery/img_21_l.webp",
+    "trainer": "MeanFlowNFT",
+    "prompt": "A curious tabby kitten looking into an ornate vintage mirror that reflects a majestic lion, warm cozy room, whimsical photography.",
+    "seed": 1,
+    "cat": "animal",
+    "source": "sd35_fancy/meanflownft_mix/a_kitten_mirror_s1.png",
+    "kind": "image",
+    "ckpt": "checkpoints/meanflownft_mix/checkpoint-400/generator_ema.pt"
+   },
+   {
+    "src": "assets/gallery/img_22.webp",
+    "full": "assets/gallery/img_22_l.webp",
+    "trainer": "DMDNFT",
+    "prompt": "Endless lavender fields in Provence at sunset with a lone tree and a stone farmhouse, warm golden light, landscape photography.",
+    "seed": 0,
+    "cat": "landscape",
+    "source": "sd35_fancy/dmdnft_mix/l_lavender_s0.png",
+    "kind": "image",
+    "ckpt": "checkpoints/dmdnft_mix/checkpoint-400/generator_ema.pt"
+   },
+   {
+    "src": "assets/gallery/img_23.webp",
+    "full": "assets/gallery/img_23_l.webp",
+    "trainer": "DMDNFT",
+    "prompt": "A powerful waterfall plunging into a turquoise canyon with a vivid rainbow in the mist, lush green cliffs, epic landscape photography.",
+    "seed": 5,
+    "cat": "landscape",
+    "source": "sd35_fancy/dmdnft_mix/l_waterfall_rainbow_s5.png",
+    "kind": "image",
+    "ckpt": "checkpoints/dmdnft_mix/checkpoint-400/generator_ema.pt"
+   },
+   {
+    "src": "assets/gallery/img_24.webp",
+    "full": "assets/gallery/img_24_l.webp",
+    "trainer": "MeanFlowNFT",
+    "prompt": "An erupting volcano at night with lava rivers and a volcanic lightning storm in the ash cloud, dramatic nature photography.",
+    "seed": 3,
+    "cat": "landscape",
+    "source": "sd35_fancy/meanflownft_mix/l_volcano_lightning_s3.png",
+    "kind": "image",
+    "ckpt": "checkpoints/meanflownft_mix/checkpoint-400/generator_ema.pt"
+   },
+   {
+    "src": "assets/gallery/img_25.webp",
+    "full": "assets/gallery/img_25_l.webp",
+    "trainer": "MeanFlowAWM",
+    "prompt": "Misty karst mountains along the Li River at dawn, a fisherman on a bamboo raft with cormorants, traditional Chinese landscape, cinematic.",
+    "seed": 0,
+    "cat": "landscape",
+    "source": "sd35_fancy/meanflowawm_mix/l_guilin_s0.png",
+    "kind": "image",
+    "ckpt": "checkpoints/meanflowawm_mix/checkpoint-400/generator_ema.pt"
+   },
+   {
+    "src": "assets/gallery/img_26.webp",
+    "full": "assets/gallery/img_26_l.webp",
+    "trainer": "DMDNFT",
+    "prompt": "A red sandstone arch under the glowing Milky Way in the desert, starry night, astrophotography.",
+    "seed": 2,
+    "cat": "landscape",
+    "source": "sd35_fancy/dmdnft_mix/l_arch_milkyway_s2.png",
+    "kind": "image",
+    "ckpt": "checkpoints/dmdnft_mix/checkpoint-400/generator_ema.pt"
+   },
+   {
+    "src": "assets/gallery/img_27.webp",
+    "full": "assets/gallery/img_27_l.webp",
+    "trainer": "DMDNFT",
+    "prompt": "A cracked open geode revealing a tiny glowing galaxy inside, resting on moss, macro photography, magical.",
+    "seed": 6,
+    "cat": "object",
+    "source": "sd35_fancy/dmdnft_mix/o_galaxy_geode_s6.png",
+    "kind": "image",
+    "ckpt": "checkpoints/dmdnft_mix/checkpoint-400/generator_ema.pt"
+   },
+   {
+    "src": "assets/gallery/img_28.webp",
+    "full": "assets/gallery/img_28_l.webp",
+    "trainer": "DMDNFT",
+    "prompt": "An elegant crystal perfume bottle surrounded by floating rose petals and golden droplets, soft pink light, luxury advertising photography.",
+    "seed": 5,
+    "cat": "object",
+    "source": "sd35_fancy/dmdnft_mix/o_perfume_s5.png",
+    "kind": "image",
+    "ckpt": "checkpoints/dmdnft_mix/checkpoint-400/generator_ema.pt"
+   },
+   {
+    "src": "assets/gallery/img_29.webp",
+    "full": "assets/gallery/img_29_l.webp",
+    "trainer": "MeanFlowNFT",
+    "prompt": "An exquisite platter of sushi and sashimi on a black slate with gold leaf, chopsticks, dramatic overhead food photography.",
+    "seed": 2,
+    "cat": "object",
+    "source": "sd35_fancy/meanflownft_mix/o_sushi_s2.png",
+    "kind": "image",
+    "ckpt": "checkpoints/meanflownft_mix/checkpoint-400/generator_ema.pt"
+   },
+   {
+    "src": "assets/gallery/img_30.webp",
+    "full": "assets/gallery/img_30_l.webp",
+    "trainer": "DMDNFT",
+    "prompt": "A glass terrarium containing a miniature waterfall, tiny trees and a little wooden house, soft window light, macro photography.",
+    "seed": 0,
+    "cat": "object",
+    "source": "sd35_fancy/dmdnft_mix/o_terrarium_s0.png",
+    "kind": "image",
+    "ckpt": "checkpoints/dmdnft_mix/checkpoint-400/generator_ema.pt"
+   },
+   {
+    "src": "assets/gallery/img_31.webp",
+    "full": "assets/gallery/img_31_l.webp",
+    "trainer": "DMDNFT",
+    "prompt": "A white porcelain rabbit figurine with delicate blue floral patterns on a dark velvet background, museum photography.",
+    "seed": 3,
+    "cat": "object",
+    "source": "sd35_fancy/dmdnft_mix/o_porcelain_rabbit_s3.png",
+    "kind": "image",
+    "ckpt": "checkpoints/dmdnft_mix/checkpoint-400/generator_ema.pt"
+   },
+   {
+    "src": "assets/gallery/img_32.webp",
+    "full": "assets/gallery/img_32_l.webp",
+    "trainer": "MeanFlowNFT",
+    "prompt": "A stained glass window depicting a phoenix and a dragon in vivid jewel colors with sunlight streaming through, cathedral interior.",
+    "seed": 3,
+    "cat": "art",
+    "source": "sd35_fancy/meanflownft_mix/r_stained_glass_s3.png",
+    "kind": "image",
+    "ckpt": "checkpoints/meanflownft_mix/checkpoint-400/generator_ema.pt"
+   },
+   {
+    "src": "assets/gallery/img_33.webp",
+    "full": "assets/gallery/img_33_l.webp",
+    "trainer": "MeanFlowAWM",
+    "prompt": "An isometric 3D diorama of a cozy floating island village with windmills, waterfalls and tiny people, pastel colors, cute render.",
+    "seed": 7,
+    "cat": "art",
+    "source": "sd35_fancy/meanflowawm_mix/r_isometric_s7.png",
+    "kind": "image",
+    "ckpt": "checkpoints/meanflowawm_mix/checkpoint-400/generator_ema.pt"
+   },
+   {
+    "src": "assets/gallery/img_34.webp",
+    "full": "assets/gallery/img_34_l.webp",
+    "trainer": "MeanFlowNFT",
+    "prompt": "An infinite fractal spiral of glowing golden and blue patterns, mathematical beauty, ultra detailed digital art.",
+    "seed": 1,
+    "cat": "art",
+    "source": "sd35_fancy/meanflownft_mix/r_fractal_s1.png",
+    "kind": "image",
+    "ckpt": "checkpoints/meanflownft_mix/checkpoint-400/generator_ema.pt"
+   },
+   {
+    "src": "assets/gallery/img_35.webp",
+    "full": "assets/gallery/img_35_l.webp",
+    "trainer": "MeanFlowNFT",
+    "prompt": "A portrait of a regal cat in the style of Gustav Klimt, golden ornamental patterns and mosaic background.",
+    "seed": 7,
+    "cat": "art",
+    "source": "sd35_fancy/meanflownft_mix/r_klimt_cat_s7.png",
+    "kind": "image",
+    "ckpt": "checkpoints/meanflownft_mix/checkpoint-400/generator_ema.pt"
+   },
+   {
+    "src": "assets/gallery/img_36.webp",
+    "full": "assets/gallery/img_36_l.webp",
+    "trainer": "DMDNFT",
+    "prompt": "A boy sitting on a crescent moon fishing for stars above a sleeping city, dreamy children's book illustration.",
+    "seed": 0,
+    "cat": "surreal",
+    "source": "sd35_fancy/dmdnft_mix/x_moon_fishing_s0.png",
+    "kind": "image",
+    "ckpt": "checkpoints/dmdnft_mix/checkpoint-400/generator_ema.pt"
+   },
+   {
+    "src": "assets/gallery/img_37.webp",
+    "full": "assets/gallery/img_37_l.webp",
+    "trainer": "MeanFlowAWM",
+    "prompt": "A grand piano on a cliff edge with a waterfall pouring out of it into the clouds, surreal fantasy photography at sunset.",
+    "seed": 5,
+    "cat": "surreal",
+    "source": "sd35_fancy/meanflowawm_mix/x_piano_waterfall_s5.png",
+    "kind": "image",
+    "ckpt": "checkpoints/meanflowawm_mix/checkpoint-400/generator_ema.pt"
+   },
+   {
+    "src": "assets/gallery/img_38.webp",
+    "full": "assets/gallery/img_38_l.webp",
+    "trainer": "FewStepGRPO",
+    "prompt": "A colossal ring-shaped space station orbiting a blue gas giant, a spaceship approaching, sun flare, photorealistic sci-fi render.",
+    "seed": 2,
+    "cat": "scifi",
+    "source": "sd35_fancy/fewstepgrpo_mix/s_ringworld_s2.png",
+    "kind": "image",
+    "ckpt": "checkpoints/fewstepgrpo_mix/checkpoint-300/generator_ema.pt"
+   },
+   {
+    "src": "assets/gallery/img_39.webp",
+    "full": "assets/gallery/img_39_l.webp",
+    "trainer": "DMDNFT",
+    "prompt": "An enormous ancient dragon with iridescent scales perched on a jagged mountain peak above a sea of clouds at sunrise, epic fantasy concept art, volumetric god rays, ultra detailed.",
+    "seed": 5,
+    "cat": "fantasy",
+    "source": "sd35_fancy/dmdnft_mix/f_dragon_peak_s5.png",
+    "kind": "image",
+    "ckpt": "checkpoints/dmdnft_mix/checkpoint-400/generator_ema.pt"
+   },
+   {
+    "src": "assets/gallery/img_40.webp",
+    "full": "assets/gallery/img_40_l.webp",
+    "trainer": "DMDNFT",
+    "prompt": "A majestic phoenix rising from swirling flames and embers, wings spread wide, glowing feathers of gold and crimson, dark background, cinematic fantasy art.",
+    "seed": 0,
+    "cat": "fantasy",
+    "source": "sd35_fancy/dmdnft_mix/f_phoenix_s0.png",
+    "kind": "image",
+    "ckpt": "checkpoints/dmdnft_mix/checkpoint-400/generator_ema.pt"
+   },
+   {
+    "src": "assets/gallery/img_41.webp",
+    "full": "assets/gallery/img_41_l.webp",
+    "trainer": "MeanFlowAWM",
+    "prompt": "A colossal whale swimming through a sky of pink clouds above a tiny seaside village at sunset, surreal dreamlike matte painting.",
+    "seed": 7,
+    "cat": "fantasy",
+    "source": "sd35_fancy/meanflowawm_mix/f_whale_sky_s7.png",
+    "kind": "image",
+    "ckpt": "checkpoints/meanflowawm_mix/checkpoint-400/generator_ema.pt"
+   },
+   {
+    "src": "assets/gallery/img_42.webp",
+    "full": "assets/gallery/img_42_l.webp",
+    "trainer": "DMDNFT",
+    "prompt": "An elven city carved into giant waterfalls, white marble bridges and golden spires, lush greenery, soft morning mist, epic fantasy landscape.",
+    "seed": 6,
+    "cat": "fantasy",
+    "source": "sd35_fancy/dmdnft_mix/f_elven_city_s6.png",
+    "kind": "image",
+    "ckpt": "checkpoints/dmdnft_mix/checkpoint-400/generator_ema.pt"
+   },
+   {
+    "src": "assets/gallery/img_43.webp",
+    "full": "assets/gallery/img_43_l.webp",
+    "trainer": "MeanFlowNFT",
+    "prompt": "A young witch reading a glowing spellbook in a cozy tower library full of floating candles and potion bottles, warm magical light, detailed illustration.",
+    "seed": 4,
+    "cat": "fantasy",
+    "source": "sd35_fancy/meanflownft_mix/f_witch_library_s4.png",
+    "kind": "image",
+    "ckpt": "checkpoints/meanflownft_mix/checkpoint-400/generator_ema.pt"
+   },
+   {
+    "src": "assets/gallery/img_44.webp",
+    "full": "assets/gallery/img_44_l.webp",
+    "trainer": "DMDNFT",
+    "prompt": "A nine-tailed white fox spirit with glowing blue flames on its tails standing in a moonlit bamboo forest, ethereal, Japanese mythology art.",
+    "seed": 0,
+    "cat": "fantasy",
+    "source": "sd35_fancy/dmdnft_mix/f_fox_spirit_s0.png",
+    "kind": "image",
+    "ckpt": "checkpoints/dmdnft_mix/checkpoint-400/generator_ema.pt"
+   },
+   {
+    "src": "assets/gallery/img_45.webp",
+    "full": "assets/gallery/img_45_l.webp",
+    "trainer": "DMDNFT",
+    "prompt": "An astronaut floating in front of a vast colorful nebula, the visor reflecting galaxies and stars, cinematic space photography, ultra detailed.",
+    "seed": 5,
+    "cat": "scifi",
+    "source": "sd35_fancy/dmdnft_mix/s_astronaut_nebula_s5.png",
+    "kind": "image",
+    "ckpt": "checkpoints/dmdnft_mix/checkpoint-400/generator_ema.pt"
+   },
+   {
+    "src": "assets/gallery/img_46.webp",
+    "full": "assets/gallery/img_46_l.webp",
+    "trainer": "DMDNFT",
+    "prompt": "A glass-domed greenhouse colony on Mars at dusk, lush green plants inside, red dust storm outside, two moons in the sky, cinematic.",
+    "seed": 4,
+    "cat": "scifi",
+    "source": "sd35_fancy/dmdnft_mix/s_mars_colony_s4.png",
+    "kind": "image",
+    "ckpt": "checkpoints/dmdnft_mix/checkpoint-400/generator_ema.pt"
+   },
+   {
+    "src": "assets/gallery/img_47.webp",
+    "full": "assets/gallery/img_47_l.webp",
+    "trainer": "MeanFlowNFT",
+    "prompt": "A grey wolf howling on a snowy ridge under a sky filled with green and purple northern lights, long exposure night photography.",
+    "seed": 7,
+    "cat": "animal",
+    "source": "sd35_fancy/meanflownft_mix/a_wolf_aurora_s7.png",
+    "kind": "image",
+    "ckpt": "checkpoints/meanflownft_mix/checkpoint-400/generator_ema.pt"
+   },
+   {
+    "src": "assets/gallery/img_48.webp",
+    "full": "assets/gallery/img_48_l.webp",
+    "trainer": "DMDNFT",
+    "prompt": "A dramatic portrait of an old sea captain with a white beard and a pipe, rain on his coat, stormy harbor behind him, oil painting in the style of Rembrandt.",
+    "seed": 0,
+    "cat": "people",
+    "source": "sd35_fancy/dmdnft_mix/p_old_sailor_s0.png",
+    "kind": "image",
+    "ckpt": "checkpoints/dmdnft_mix/checkpoint-400/generator_ema.pt"
+   },
+   {
+    "src": "assets/gallery/img_49.webp",
+    "full": "assets/gallery/img_49_l.webp",
+    "trainer": "MeanFlowNFT",
+    "prompt": "A dancer leaping mid-air surrounded by an explosion of colorful powder, black background, high-speed photography.",
+    "seed": 2,
+    "cat": "people",
+    "source": "sd35_fancy/meanflownft_mix/p_dancer_powder_s2.png",
+    "kind": "image",
+    "ckpt": "checkpoints/meanflownft_mix/checkpoint-400/generator_ema.pt"
+   },
+   {
+    "src": "assets/gallery/img_50.webp",
+    "full": "assets/gallery/img_50_l.webp",
+    "trainer": "MeanFlowAWM",
+    "prompt": "A violinist playing on a rainy Paris street at night under a street lamp, reflections on wet cobblestones, cinematic moody photography.",
+    "seed": 0,
+    "cat": "people",
+    "source": "sd35_fancy/meanflowawm_mix/p_violin_rain_s0.png",
+    "kind": "image",
+    "ckpt": "checkpoints/meanflowawm_mix/checkpoint-400/generator_ema.pt"
+   },
+   {
+    "src": "assets/gallery/img_51.webp",
+    "full": "assets/gallery/img_51_l.webp",
+    "trainer": "MeanFlowNFT",
+    "prompt": "An astronaut taking a selfie on the Moon with Earth rising behind, reflections in the helmet visor, photorealistic.",
+    "seed": 6,
+    "cat": "people",
+    "source": "sd35_fancy/meanflownft_mix/p_astronaut_selfie_s6.png",
+    "kind": "image",
+    "ckpt": "checkpoints/meanflownft_mix/checkpoint-400/generator_ema.pt"
+   },
+   {
+    "src": "assets/gallery/img_52.webp",
+    "full": "assets/gallery/img_52_l.webp",
+    "trainer": "MeanFlowNFT",
+    "prompt": "A chef flipping food in a wok with a huge burst of flames in a dark restaurant kitchen, dramatic lighting, motion, food photography.",
+    "seed": 0,
+    "cat": "people",
+    "source": "sd35_fancy/meanflownft_mix/p_chef_flame_s0.png",
+    "kind": "image",
+    "ckpt": "checkpoints/meanflownft_mix/checkpoint-400/generator_ema.pt"
+   },
+   {
+    "src": "assets/gallery/img_53.webp",
+    "full": "assets/gallery/img_53_l.webp",
+    "trainer": "DMDNFT",
+    "prompt": "A gigantic ice palace glowing from within on a frozen fjord under the aurora, snow sparkling, fantasy winter landscape, ultra detailed.",
+    "seed": 1,
+    "cat": "landscape",
+    "source": "sd35_fancy/dmdnft_mix/l_ice_castle_s1.png",
+    "kind": "image",
+    "ckpt": "checkpoints/dmdnft_mix/checkpoint-400/generator_ema.pt"
+   },
+   {
+    "src": "assets/gallery/img_54.webp",
+    "full": "assets/gallery/img_54_l.webp",
+    "trainer": "DMDNFT",
+    "prompt": "A street in old Kyoto at dusk with cherry blossoms in full bloom, glowing paper lanterns and a pagoda in the distance, cinematic.",
+    "seed": 5,
+    "cat": "landscape",
+    "source": "sd35_fancy/dmdnft_mix/l_cherry_kyoto_s5.png",
+    "kind": "image",
+    "ckpt": "checkpoints/dmdnft_mix/checkpoint-400/generator_ema.pt"
+   },
+   {
+    "src": "assets/gallery/img_55.webp",
+    "full": "assets/gallery/img_55_l.webp",
+    "trainer": "DMDNFT",
+    "prompt": "A bustling ancient Chinese street market at sunset with red lanterns, wooden pavilions and people in hanfu, highly detailed cinematic scene.",
+    "seed": 3,
+    "cat": "landscape",
+    "source": "sd35_fancy/dmdnft_mix/l_ancient_street_s3.png",
+    "kind": "image",
+    "ckpt": "checkpoints/dmdnft_mix/checkpoint-400/generator_ema.pt"
+   },
+   {
+    "src": "assets/gallery/img_56.webp",
+    "full": "assets/gallery/img_56_l.webp",
+    "trainer": "MeanFlowNFT",
+    "prompt": "Glass chess pieces on a mirrored chessboard under a single spotlight, dramatic reflections and refractions, high-end photography.",
+    "seed": 2,
+    "cat": "object",
+    "source": "sd35_fancy/meanflownft_mix/o_chess_glass_s2.png",
+    "kind": "image",
+    "ckpt": "checkpoints/meanflownft_mix/checkpoint-400/generator_ema.pt"
+   },
+   {
+    "src": "assets/gallery/img_57.webp",
+    "full": "assets/gallery/img_57_l.webp",
+    "trainer": "FewStepGRPO",
+    "prompt": "An ancient Dunhuang-style fresco of flying celestial musicians with flowing ribbons, faded mineral colors, cracked plaster texture.",
+    "seed": 5,
+    "cat": "art",
+    "source": "sd35_fancy/fewstepgrpo_mix/r_fresco_s5.png",
+    "kind": "image",
+    "ckpt": "checkpoints/fewstepgrpo_mix/checkpoint-300/generator_ema.pt"
+   },
+   {
+    "src": "assets/gallery/img_58.webp",
+    "full": "assets/gallery/img_58_l.webp",
+    "trainer": "MeanFlowNFT",
+    "prompt": "A traditional Chinese ink wash painting of mountains, pine trees and a small pavilion in the mist, elegant brush strokes.",
+    "seed": 7,
+    "cat": "art",
+    "source": "sd35_fancy/meanflownft_mix/r_ink_mountain_s7.png",
+    "kind": "image",
+    "ckpt": "checkpoints/meanflownft_mix/checkpoint-400/generator_ema.pt"
+   },
+   {
+    "src": "assets/gallery/img_59.webp",
+    "full": "assets/gallery/img_59_l.webp",
+    "trainer": "MeanFlowNFT",
+    "prompt": "A layered paper-cut art diorama of a forest with deer under a full moon, soft shadows between paper layers, intricate craft.",
+    "seed": 5,
+    "cat": "art",
+    "source": "sd35_fancy/meanflownft_mix/r_papercut_s5.png",
+    "kind": "image",
+    "ckpt": "checkpoints/meanflownft_mix/checkpoint-400/generator_ema.pt"
+   },
+   {
+    "src": "assets/gallery/img_60.webp",
+    "full": "assets/gallery/img_60_l.webp",
+    "trainer": "MeanFlowAWM",
+    "prompt": "People floating over a city at dusk holding black umbrellas like Magritte, surreal golden light, cinematic.",
+    "seed": 5,
+    "cat": "surreal",
+    "source": "sd35_fancy/meanflowawm_mix/x_umbrella_city_s5.png",
+    "kind": "image",
+    "ckpt": "checkpoints/meanflowawm_mix/checkpoint-400/generator_ema.pt"
+   },
+   {
+    "src": "assets/gallery/img_61.webp",
+    "full": "assets/gallery/img_61_l.webp",
+    "trainer": "DMDNFT",
+    "prompt": "A giant hourglass on a beach where the sand flowing inside forms a miniature desert with a caravan, surreal concept art.",
+    "seed": 5,
+    "cat": "surreal",
+    "source": "sd35_fancy/dmdnft_mix/x_hourglass_beach_s5.png",
+    "kind": "image",
+    "ckpt": "checkpoints/dmdnft_mix/checkpoint-400/generator_ema.pt"
+   }
+  ],
+  "videos": [
+   {
+    "src": "assets/gallery/vid_00.mp4",
+    "poster": "assets/gallery/vid_00.webp",
+    "trainer": "ReFL",
+    "prompt": "A majestic dragon with shimmering scales flying over snowy mountain peaks at sunrise, wings beating slowly, epic cinematic aerial shot.",
+    "seed": 0,
+    "source": "wan_fancy/reflmx/v_dragon_s0.mp4",
+    "kind": "video",
+    "ckpt": "checkpoints/reflmx/checkpoint-250/generator_ema.pt"
+   },
+   {
+    "src": "assets/gallery/vid_01.mp4",
+    "poster": "assets/gallery/vid_01.webp",
+    "trainer": "MeanFlowNFT",
+    "prompt": "A phoenix made of fire spreading its wings and rising into the night sky, embers and sparks swirling around it, cinematic slow motion.",
+    "seed": 0,
+    "source": "wan_fancy/meanflownft/v_phoenix_s0.mp4",
+    "kind": "video",
+    "ckpt": "checkpoints/meanflownft/checkpoint-250/generator_ema.pt"
+   },
+   {
+    "src": "assets/gallery/vid_02.mp4",
+    "poster": "assets/gallery/vid_02.webp",
+    "trainer": "FewStepOPSD",
+    "prompt": "A giant whale swimming slowly through pink sunset clouds above a small seaside town, dreamy surreal cinematic shot.",
+    "seed": 0,
+    "source": "wan_fancy/meanflowopsd/v_whale_sky_s0.mp4",
+    "kind": "video",
+    "ckpt": "checkpoints/meanflowopsd/checkpoint-250/generator_ema.pt"
+   },
+   {
+    "src": "assets/gallery/vid_03.mp4",
+    "poster": "assets/gallery/vid_03.webp",
+    "trainer": "DMDNFT",
+    "prompt": "Thousands of glowing paper lanterns floating up into the night sky over a calm lake, reflections on the water, magical atmosphere.",
+    "seed": 0,
+    "source": "wan_fancy/dmdnft/v_lanterns_s0.mp4",
+    "kind": "video",
+    "ckpt": "checkpoints/dmdnft/checkpoint-250/generator_ema.pt"
+   },
+   {
+    "src": "assets/gallery/vid_04.mp4",
+    "poster": "assets/gallery/vid_04.webp",
+    "trainer": "MeanFlowAWM",
+    "prompt": "Vivid green and purple northern lights dancing over a snowy mountain lake, stars twinkling, time-lapse.",
+    "seed": 0,
+    "source": "wan_fancy/meanflowawm/v_aurora_s0.mp4",
+    "kind": "video",
+    "ckpt": "checkpoints/meanflowawm/checkpoint-250/generator_ema.pt"
+   },
+   {
+    "src": "assets/gallery/vid_05.mp4",
+    "poster": "assets/gallery/vid_05.webp",
+    "trainer": "DMDAWM",
+    "prompt": "An astronaut floating slowly in front of a colorful nebula, stars drifting, the visor reflecting galaxies, cinematic space shot.",
+    "seed": 0,
+    "source": "wan_fancy/dmdawm/v_astronaut_s0.mp4",
+    "kind": "video",
+    "ckpt": "checkpoints/dmdawm/checkpoint-250/generator_ema.pt"
+   },
+   {
+    "src": "assets/gallery/vid_06.mp4",
+    "poster": "assets/gallery/vid_06.webp",
+    "trainer": "FewStepGRPO",
+    "prompt": "Hundreds of blue morpho butterflies fluttering through a sunlit rainforest, light rays through the canopy, magical slow motion.",
+    "seed": 0,
+    "source": "wan_fancy/fewstepgrpo/v_butterflies_s0.mp4",
+    "kind": "video",
+    "ckpt": "checkpoints/fewstepgrpo/checkpoint-250/generator_ema.pt"
+   },
+   {
+    "src": "assets/gallery/vid_07.mp4",
+    "poster": "assets/gallery/vid_07.webp",
+    "trainer": "ReFL",
+    "prompt": "A dancer in a flowing red dress spinning on a sand dune at sunset, the fabric swirling in the wind, cinematic slow motion.",
+    "seed": 0,
+    "source": "wan_fancy/reflmx/v_dancer_s0.mp4",
+    "kind": "video",
+    "ckpt": "checkpoints/reflmx/checkpoint-250/generator_ema.pt"
+   },
+   {
+    "src": "assets/gallery/vid_08.mp4",
+    "poster": "assets/gallery/vid_08.webp",
+    "trainer": "FewStepOPSD",
+    "prompt": "Cherry blossom petals falling on an old Kyoto street at dusk with glowing lanterns, people walking with umbrellas, cinematic.",
+    "seed": 0,
+    "source": "wan_fancy/meanflowopsd/v_kyoto_s0.mp4",
+    "kind": "video",
+    "ckpt": "checkpoints/meanflowopsd/checkpoint-250/generator_ema.pt"
+   },
+   {
+    "src": "assets/gallery/vid_09.mp4",
+    "poster": "assets/gallery/vid_09.webp",
+    "trainer": "MeanFlowNFT",
+    "prompt": "A glowing ice castle on a frozen lake under the aurora, snowflakes falling, the camera slowly pushing in, fantasy cinematic.",
+    "seed": 0,
+    "source": "wan_fancy/meanflownft/v_ice_castle_s0.mp4",
+    "kind": "video",
+    "ckpt": "checkpoints/meanflownft/checkpoint-250/generator_ema.pt"
+   },
+   {
+    "src": "assets/gallery/vid_10.mp4",
+    "poster": "assets/gallery/vid_10.webp",
+    "trainer": "DMDNFT",
+    "prompt": "A colorful octopus gliding gracefully over a vibrant coral reef, tentacles flowing, sunlight beams underwater.",
+    "seed": 0,
+    "source": "wan_fancy/dmdnft/v_octopus_s0.mp4",
+    "kind": "video",
+    "ckpt": "checkpoints/dmdnft/checkpoint-250/generator_ema.pt"
+   },
+   {
+    "src": "assets/gallery/vid_11.mp4",
+    "poster": "assets/gallery/vid_11.webp",
+    "trainer": "MeanFlowAWM",
+    "prompt": "An erupting volcano at night with glowing lava fountains and rivers of lava flowing down the slope, dramatic nature footage.",
+    "seed": 0,
+    "source": "wan_fancy/meanflowawm/v_volcano_s0.mp4",
+    "kind": "video",
+    "ckpt": "checkpoints/meanflowawm/checkpoint-250/generator_ema.pt"
+   },
+   {
+    "src": "assets/gallery/vid_12.mp4",
+    "poster": "assets/gallery/vid_12.webp",
+    "trainer": "DMDNFT",
+    "prompt": "A cyberpunk girl with glowing blue hair walking through a crowded neon street market at night, rain, cinematic tracking shot.",
+    "seed": 1,
+    "source": "wan_v2/dmdnft/w_cyber_girl_s1.mp4",
+    "kind": "video",
+    "ckpt": "checkpoints/dmdnft/checkpoint-250/generator_ema.pt"
+   },
+   {
+    "src": "assets/gallery/vid_13.mp4",
+    "poster": "assets/gallery/vid_13.webp",
+    "trainer": "DMDNFT",
+    "prompt": "A little girl chasing giant soap bubbles in a sunny meadow, the bubbles shimmering with rainbow colors, joyful slow motion.",
+    "seed": 5,
+    "source": "wan_v2/dmdnft/w_child_bubbles_s5.mp4",
+    "kind": "video",
+    "ckpt": "checkpoints/dmdnft/checkpoint-250/generator_ema.pt"
+   },
+   {
+    "src": "assets/gallery/vid_14.mp4",
+    "poster": "assets/gallery/vid_14.webp",
+    "trainer": "MeanFlowNFT",
+    "prompt": "A peacock slowly spreading its magnificent iridescent tail feathers in a palace garden, soft morning light.",
+    "seed": 1,
+    "source": "wan_v2/meanflownft/w_peacock_s1.mp4",
+    "kind": "video",
+    "ckpt": "checkpoints/meanflownft/checkpoint-250/generator_ema.pt"
+   },
+   {
+    "src": "assets/gallery/vid_15.mp4",
+    "poster": "assets/gallery/vid_15.webp",
+    "trainer": "DMDNFT",
+    "prompt": "A red train passing through a tunnel of pink cherry blossom trees in spring, petals blowing in the wind, cinematic.",
+    "seed": 3,
+    "source": "wan_v2/dmdnft/w_sakura_train_s3.mp4",
+    "kind": "video",
+    "ckpt": "checkpoints/dmdnft/checkpoint-250/generator_ema.pt"
+   },
+   {
+    "src": "assets/gallery/vid_16.mp4",
+    "poster": "assets/gallery/vid_16.webp",
+    "trainer": "MeanFlowNFT",
+    "prompt": "A pod of dolphins jumping out of crystal clear blue water at sunset, water droplets glittering, slow motion.",
+    "seed": 0,
+    "source": "wan_v2/meanflownft/w_dolphins_s0.mp4",
+    "kind": "video",
+    "ckpt": "checkpoints/meanflownft/checkpoint-250/generator_ema.pt"
+   },
+   {
+    "src": "assets/gallery/vid_17.mp4",
+    "poster": "assets/gallery/vid_17.webp",
+    "trainer": "DMDNFT",
+    "prompt": "A samurai in black armor slowly drawing his katana in heavy rain at night, lightning in the background, cinematic close-up.",
+    "seed": 4,
+    "source": "wan_v2/dmdnft/w_samurai_rain_s4.mp4",
+    "kind": "video",
+    "ckpt": "checkpoints/dmdnft/checkpoint-250/generator_ema.pt"
+   }
+  ]
+ },
+ "methods": {
+  "SD3.5-M · 40 steps + CFG": [
+   {
+    "src": "assets/methods/sd35_fox_snow.webp",
+    "prompt": "A red fox standing in a snowy birch forest at dawn, morning mist, soft backlight on its fur, National Geographic wildlife photo.",
+    "seed": 2,
+    "imagereward": 1.19,
+    "note": ""
+   },
+   {
+    "src": "assets/methods/sd35_panda_latte.webp",
+    "prompt": "A panda making latte art.",
+    "seed": 2,
+    "imagereward": 1.16,
+    "note": ""
+   },
+   {
+    "src": "assets/methods/sd35_butterfly_glass.webp",
+    "prompt": "A mechanical butterfly with stained glass wings landing on a red rose, macro photography, morning dew.",
+    "seed": 0,
+    "imagereward": 1.64,
+    "note": ""
+   },
+   {
+    "src": "assets/methods/sd35_bottle_cottage.webp",
+    "prompt": "A tiny cottage with a glowing window inside a glass bottle, moss and mushrooms around it, miniature macro photography.",
+    "seed": 2,
+    "imagereward": 1.99,
+    "note": ""
+   },
+   {
+    "src": "assets/methods/sd35_fisherman.webp",
+    "prompt": "A close-up portrait of an elderly fisherman with weathered skin and a knitted wool cap, soft window light, 85mm film photo.",
+    "seed": 2,
+    "imagereward": 1.88,
+    "note": ""
+   }
+  ],
+  "AnyFlow init": [
+   {
+    "src": "assets/methods/anyflow_fox_snow.webp",
+    "prompt": "A red fox standing in a snowy birch forest at dawn, morning mist, soft backlight on its fur, National Geographic wildlife photo.",
+    "seed": 2,
+    "imagereward": 1.38,
+    "note": ""
+   },
+   {
+    "src": "assets/methods/anyflow_panda_latte.webp",
+    "prompt": "A panda making latte art.",
+    "seed": 2,
+    "imagereward": 1.78,
+    "note": ""
+   },
+   {
+    "src": "assets/methods/anyflow_butterfly_glass.webp",
+    "prompt": "A mechanical butterfly with stained glass wings landing on a red rose, macro photography, morning dew.",
+    "seed": 0,
+    "imagereward": 1.04,
+    "note": ""
+   },
+   {
+    "src": "assets/methods/anyflow_bottle_cottage.webp",
+    "prompt": "A tiny cottage with a glowing window inside a glass bottle, moss and mushrooms around it, miniature macro photography.",
+    "seed": 2,
+    "imagereward": 1.98,
+    "note": ""
+   },
+   {
+    "src": "assets/methods/anyflow_fisherman.webp",
+    "prompt": "A close-up portrait of an elderly fisherman with weathered skin and a knitted wool cap, soft window light, 85mm film photo.",
+    "seed": 2,
+    "imagereward": 1.85,
+    "note": ""
+   }
+  ],
+  "FewStepGRPO": [
+   {
+    "src": "assets/methods/fewstepgrpo_mix_fox_snow.webp",
+    "prompt": "A red fox standing in a snowy birch forest at dawn, morning mist, soft backlight on its fur, National Geographic wildlife photo.",
+    "seed": 2,
+    "imagereward": 1.33,
+    "note": ""
+   },
+   {
+    "src": "assets/methods/fewstepgrpo_mix_panda_latte.webp",
+    "prompt": "A panda making latte art.",
+    "seed": 2,
+    "imagereward": 1.96,
+    "note": ""
+   },
+   {
+    "src": "assets/methods/fewstepgrpo_mix_butterfly_glass.webp",
+    "prompt": "A mechanical butterfly with stained glass wings landing on a red rose, macro photography, morning dew.",
+    "seed": 0,
+    "imagereward": 1.14,
+    "note": ""
+   },
+   {
+    "src": "assets/methods/fewstepgrpo_mix_bottle_cottage.webp",
+    "prompt": "A tiny cottage with a glowing window inside a glass bottle, moss and mushrooms around it, miniature macro photography.",
+    "seed": 2,
+    "imagereward": 1.98,
+    "note": ""
+   },
+   {
+    "src": "assets/methods/fewstepgrpo_mix_fisherman.webp",
+    "prompt": "A close-up portrait of an elderly fisherman with weathered skin and a knitted wool cap, soft window light, 85mm film photo.",
+    "seed": 2,
+    "imagereward": 1.87,
+    "note": ""
+   }
+  ],
+  "MeanFlowAWM": [
+   {
+    "src": "assets/methods/meanflowawm_mix_fox_snow.webp",
+    "prompt": "A red fox standing in a snowy birch forest at dawn, morning mist, soft backlight on its fur, National Geographic wildlife photo.",
+    "seed": 2,
+    "imagereward": 1.57,
+    "note": ""
+   },
+   {
+    "src": "assets/methods/meanflowawm_mix_panda_latte.webp",
+    "prompt": "A panda making latte art.",
+    "seed": 2,
+    "imagereward": 1.95,
+    "note": ""
+   },
+   {
+    "src": "assets/methods/meanflowawm_mix_butterfly_glass.webp",
+    "prompt": "A mechanical butterfly with stained glass wings landing on a red rose, macro photography, morning dew.",
+    "seed": 0,
+    "imagereward": 1.55,
+    "note": ""
+   },
+   {
+    "src": "assets/methods/meanflowawm_mix_bottle_cottage.webp",
+    "prompt": "A tiny cottage with a glowing window inside a glass bottle, moss and mushrooms around it, miniature macro photography.",
+    "seed": 2,
+    "imagereward": 1.99,
+    "note": ""
+   },
+   {
+    "src": "assets/methods/meanflowawm_mix_fisherman.webp",
+    "prompt": "A close-up portrait of an elderly fisherman with weathered skin and a knitted wool cap, soft window light, 85mm film photo.",
+    "seed": 2,
+    "imagereward": 1.9,
+    "note": ""
+   }
+  ],
+  "DMDAWM": [
+   {
+    "src": "assets/methods/dmdawm_mix_fox_snow.webp",
+    "prompt": "A red fox standing in a snowy birch forest at dawn, morning mist, soft backlight on its fur, National Geographic wildlife photo.",
+    "seed": 2,
+    "imagereward": 1.25,
+    "note": "Gaussian blur σ = 2 px"
+   },
+   {
+    "src": "assets/methods/dmdawm_mix_panda_latte.webp",
+    "prompt": "A panda making latte art.",
+    "seed": 2,
+    "imagereward": 1.95,
+    "note": "Gaussian blur σ = 2 px"
+   },
+   {
+    "src": "assets/methods/dmdawm_mix_butterfly_glass.webp",
+    "prompt": "A mechanical butterfly with stained glass wings landing on a red rose, macro photography, morning dew.",
+    "seed": 0,
+    "imagereward": 0.81,
+    "note": "Gaussian blur σ = 2 px"
+   },
+   {
+    "src": "assets/methods/dmdawm_mix_bottle_cottage.webp",
+    "prompt": "A tiny cottage with a glowing window inside a glass bottle, moss and mushrooms around it, miniature macro photography.",
+    "seed": 2,
+    "imagereward": 1.96,
+    "note": "Gaussian blur σ = 2 px"
+   },
+   {
+    "src": "assets/methods/dmdawm_mix_fisherman.webp",
+    "prompt": "A close-up portrait of an elderly fisherman with weathered skin and a knitted wool cap, soft window light, 85mm film photo.",
+    "seed": 2,
+    "imagereward": 1.85,
+    "note": "Gaussian blur σ = 2 px"
+   }
+  ],
+  "MeanFlowNFT": [
+   {
+    "src": "assets/methods/meanflownft_mix_fox_snow.webp",
+    "prompt": "A red fox standing in a snowy birch forest at dawn, morning mist, soft backlight on its fur, National Geographic wildlife photo.",
+    "seed": 2,
+    "imagereward": 1.69,
+    "note": ""
+   },
+   {
+    "src": "assets/methods/meanflownft_mix_panda_latte.webp",
+    "prompt": "A panda making latte art.",
+    "seed": 2,
+    "imagereward": 1.97,
+    "note": ""
+   },
+   {
+    "src": "assets/methods/meanflownft_mix_butterfly_glass.webp",
+    "prompt": "A mechanical butterfly with stained glass wings landing on a red rose, macro photography, morning dew.",
+    "seed": 0,
+    "imagereward": 1.56,
+    "note": ""
+   },
+   {
+    "src": "assets/methods/meanflownft_mix_bottle_cottage.webp",
+    "prompt": "A tiny cottage with a glowing window inside a glass bottle, moss and mushrooms around it, miniature macro photography.",
+    "seed": 2,
+    "imagereward": 2.0,
+    "note": ""
+   },
+   {
+    "src": "assets/methods/meanflownft_mix_fisherman.webp",
+    "prompt": "A close-up portrait of an elderly fisherman with weathered skin and a knitted wool cap, soft window light, 85mm film photo.",
+    "seed": 2,
+    "imagereward": 1.9,
+    "note": ""
+   }
+  ],
+  "DMDNFT": [
+   {
+    "src": "assets/methods/dmdnft_mix_fox_snow.webp",
+    "prompt": "A red fox standing in a snowy birch forest at dawn, morning mist, soft backlight on its fur, National Geographic wildlife photo.",
+    "seed": 2,
+    "imagereward": 1.68,
+    "note": ""
+   },
+   {
+    "src": "assets/methods/dmdnft_mix_panda_latte.webp",
+    "prompt": "A panda making latte art.",
+    "seed": 2,
+    "imagereward": 1.98,
+    "note": ""
+   },
+   {
+    "src": "assets/methods/dmdnft_mix_butterfly_glass.webp",
+    "prompt": "A mechanical butterfly with stained glass wings landing on a red rose, macro photography, morning dew.",
+    "seed": 0,
+    "imagereward": 1.6,
+    "note": ""
+   },
+   {
+    "src": "assets/methods/dmdnft_mix_bottle_cottage.webp",
+    "prompt": "A tiny cottage with a glowing window inside a glass bottle, moss and mushrooms around it, miniature macro photography.",
+    "seed": 2,
+    "imagereward": 2.0,
+    "note": ""
+   },
+   {
+    "src": "assets/methods/dmdnft_mix_fisherman.webp",
+    "prompt": "A close-up portrait of an elderly fisherman with weathered skin and a knitted wool cap, soft window light, 85mm film photo.",
+    "seed": 2,
+    "imagereward": 1.93,
+    "note": ""
+   }
+  ],
+  "FewStepOPSD": [
+   {
+    "src": "assets/methods/meanflowopsd_mix_fox_snow.webp",
+    "prompt": "A red fox standing in a snowy birch forest at dawn, morning mist, soft backlight on its fur, National Geographic wildlife photo.",
+    "seed": 2,
+    "imagereward": 1.74,
+    "note": ""
+   },
+   {
+    "src": "assets/methods/meanflowopsd_mix_panda_latte.webp",
+    "prompt": "A panda making latte art.",
+    "seed": 2,
+    "imagereward": 2.01,
+    "note": ""
+   },
+   {
+    "src": "assets/methods/meanflowopsd_mix_butterfly_glass.webp",
+    "prompt": "A mechanical butterfly with stained glass wings landing on a red rose, macro photography, morning dew.",
+    "seed": 0,
+    "imagereward": 1.76,
+    "note": ""
+   },
+   {
+    "src": "assets/methods/meanflowopsd_mix_bottle_cottage.webp",
+    "prompt": "A tiny cottage with a glowing window inside a glass bottle, moss and mushrooms around it, miniature macro photography.",
+    "seed": 2,
+    "imagereward": 2.0,
+    "note": ""
+   },
+   {
+    "src": "assets/methods/meanflowopsd_mix_fisherman.webp",
+    "prompt": "A close-up portrait of an elderly fisherman with weathered skin and a knitted wool cap, soft window light, 85mm film photo.",
+    "seed": 2,
+    "imagereward": 1.94,
+    "note": ""
+   }
+  ],
+  "ReFL": [
+   {
+    "src": "assets/methods/reflmx_mix_fox_snow.webp",
+    "prompt": "A red fox standing in a snowy birch forest at dawn, morning mist, soft backlight on its fur, National Geographic wildlife photo.",
+    "seed": 2,
+    "imagereward": 1.74,
+    "note": ""
+   },
+   {
+    "src": "assets/methods/reflmx_mix_panda_latte.webp",
+    "prompt": "A panda making latte art.",
+    "seed": 2,
+    "imagereward": 2.0,
+    "note": ""
+   },
+   {
+    "src": "assets/methods/reflmx_mix_butterfly_glass.webp",
+    "prompt": "A mechanical butterfly with stained glass wings landing on a red rose, macro photography, morning dew.",
+    "seed": 0,
+    "imagereward": 1.72,
+    "note": ""
+   },
+   {
+    "src": "assets/methods/reflmx_mix_bottle_cottage.webp",
+    "prompt": "A tiny cottage with a glowing window inside a glass bottle, moss and mushrooms around it, miniature macro photography.",
+    "seed": 2,
+    "imagereward": 2.0,
+    "note": ""
+   },
+   {
+    "src": "assets/methods/reflmx_mix_fisherman.webp",
+    "prompt": "A close-up portrait of an elderly fisherman with weathered skin and a knitted wool cap, soft window light, 85mm film photo.",
+    "seed": 2,
+    "imagereward": 1.96,
+    "note": ""
+   }
+  ]
+ },
+ "video_grid": {
+  "w_dolphins": {
+   "AnyFlow init": {
+    "src": "assets/video/w_dolphins_anyflow.mp4",
+    "poster": "assets/video/w_dolphins_anyflow.webp"
+   },
+   "FewStepGRPO": {
+    "src": "assets/video/w_dolphins_fewstepgrpo.mp4",
+    "poster": "assets/video/w_dolphins_fewstepgrpo.webp"
+   },
+   "MeanFlowAWM": {
+    "src": "assets/video/w_dolphins_meanflowawm.mp4",
+    "poster": "assets/video/w_dolphins_meanflowawm.webp"
+   },
+   "DMDAWM": {
+    "src": "assets/video/w_dolphins_dmdawm.mp4",
+    "poster": "assets/video/w_dolphins_dmdawm.webp"
+   },
+   "MeanFlowNFT": {
+    "src": "assets/video/w_dolphins_meanflownft.mp4",
+    "poster": "assets/video/w_dolphins_meanflownft.webp"
+   },
+   "DMDNFT": {
+    "src": "assets/video/w_dolphins_dmdnft.mp4",
+    "poster": "assets/video/w_dolphins_dmdnft.webp"
+   },
+   "FewStepOPSD": {
+    "src": "assets/video/w_dolphins_meanflowopsd.mp4",
+    "poster": "assets/video/w_dolphins_meanflowopsd.webp"
+   },
+   "ReFL": {
+    "src": "assets/video/w_dolphins_reflmx.mp4",
+    "poster": "assets/video/w_dolphins_reflmx.webp"
+   },
+   "_prompt": "A pod of dolphins jumping out of crystal clear blue water at sunset, water droplets glittering, slow motion.",
+   "_seed": 1
+  },
+  "v_butterflies": {
+   "AnyFlow init": {
+    "src": "assets/video/v_butterflies_anyflow.mp4",
+    "poster": "assets/video/v_butterflies_anyflow.webp"
+   },
+   "FewStepGRPO": {
+    "src": "assets/video/v_butterflies_fewstepgrpo.mp4",
+    "poster": "assets/video/v_butterflies_fewstepgrpo.webp"
+   },
+   "MeanFlowAWM": {
+    "src": "assets/video/v_butterflies_meanflowawm.mp4",
+    "poster": "assets/video/v_butterflies_meanflowawm.webp"
+   },
+   "DMDAWM": {
+    "src": "assets/video/v_butterflies_dmdawm.mp4",
+    "poster": "assets/video/v_butterflies_dmdawm.webp"
+   },
+   "MeanFlowNFT": {
+    "src": "assets/video/v_butterflies_meanflownft.mp4",
+    "poster": "assets/video/v_butterflies_meanflownft.webp"
+   },
+   "DMDNFT": {
+    "src": "assets/video/v_butterflies_dmdnft.mp4",
+    "poster": "assets/video/v_butterflies_dmdnft.webp"
+   },
+   "FewStepOPSD": {
+    "src": "assets/video/v_butterflies_meanflowopsd.mp4",
+    "poster": "assets/video/v_butterflies_meanflowopsd.webp"
+   },
+   "ReFL": {
+    "src": "assets/video/v_butterflies_reflmx.mp4",
+    "poster": "assets/video/v_butterflies_reflmx.webp"
+   },
+   "_prompt": "Hundreds of blue morpho butterflies fluttering through a sunlit rainforest, light rays through the canopy, magical slow motion.",
+   "_seed": 0
+  }
+ },
+ "ocr_pairs": [
+  {
+   "prompt": "A small storefront on a Tokyo street at night with a bright illuminated sign above the door that says \"FewStepRL\", paper lanterns and passing people.",
+   "seed": 1,
+   "models": {
+    "anyflow": {
+     "src": "assets/exp/ocr_slogan_store_anyflow.webp",
+     "ocr": 0.0
+    },
+    "fewstepgrpo_ocr": {
+     "src": "assets/exp/ocr_slogan_store_fewstepgrpo_ocr.webp",
+     "ocr": 1.0
+    },
+    "meanflowawm_ocr@300": {
+     "src": "assets/exp/ocr_slogan_store_meanflowawm_ocr_it300.webp",
+     "ocr": 1.0
+    },
+    "dmdawm_ocr@100": {
+     "src": "assets/exp/ocr_slogan_store_dmdawm_ocr_it100.webp",
+     "ocr": 1.0
+    },
+    "meanflownft_ocr@100": {
+     "src": "assets/exp/ocr_slogan_store_meanflownft_ocr_it100.webp",
+     "ocr": 1.0
+    },
+    "dmdnft_ocr@100": {
+     "src": "assets/exp/ocr_slogan_store_dmdnft_ocr_it100.webp",
+     "ocr": 1.0
+    }
+   }
+  },
+  {
+   "prompt": "A glossy magazine cover with the big headline \"FewStepRL\", a friendly robot painter working in a sunlit art studio.",
+   "seed": 3,
+   "models": {
+    "anyflow": {
+     "src": "assets/exp/ocr_poster_magazine_anyflow.webp",
+     "ocr": 0.0
+    },
+    "fewstepgrpo_ocr": {
+     "src": "assets/exp/ocr_poster_magazine_fewstepgrpo_ocr.webp",
+     "ocr": 0.89
+    },
+    "meanflowawm_ocr@300": {
+     "src": "assets/exp/ocr_poster_magazine_meanflowawm_ocr_it300.webp",
+     "ocr": 1.0
+    },
+    "dmdawm_ocr@100": {
+     "src": "assets/exp/ocr_poster_magazine_dmdawm_ocr_it100.webp",
+     "ocr": 1.0
+    },
+    "meanflownft_ocr@100": {
+     "src": "assets/exp/ocr_poster_magazine_meanflownft_ocr_it100.webp",
+     "ocr": 1.0
+    },
+    "dmdnft_ocr@100": {
+     "src": "assets/exp/ocr_poster_magazine_dmdnft_ocr_it100.webp",
+     "ocr": 1.0
+    }
+   }
+  },
+  {
+   "prompt": "An antique leather-bound book lying on a desk, its cover embossed in gold with the title \"FewStepRL\", candlelight, shallow depth of field.",
+   "seed": 9,
+   "models": {
+    "anyflow": {
+     "src": "assets/exp/ocr_slogan_book_anyflow.webp",
+     "ocr": 0.0
+    },
+    "fewstepgrpo_ocr": {
+     "src": "assets/exp/ocr_slogan_book_fewstepgrpo_ocr.webp",
+     "ocr": 0.78
+    },
+    "meanflowawm_ocr@300": {
+     "src": "assets/exp/ocr_slogan_book_meanflowawm_ocr_it300.webp",
+     "ocr": 0.89
+    },
+    "dmdawm_ocr@100": {
+     "src": "assets/exp/ocr_slogan_book_dmdawm_ocr_it100.webp",
+     "ocr": 1.0
+    },
+    "meanflownft_ocr@100": {
+     "src": "assets/exp/ocr_slogan_book_meanflownft_ocr_it100.webp",
+     "ocr": 1.0
+    },
+    "dmdnft_ocr@100": {
+     "src": "assets/exp/ocr_slogan_book_dmdnft_ocr_it100.webp",
+     "ocr": 1.0
+    }
+   }
+  },
+  {
+   "prompt": "A smiling young woman wearing a white t-shirt printed with the text \"FewStepRL\", standing in a sunny park, fashion photo.",
+   "seed": 3,
+   "models": {
+    "anyflow": {
+     "src": "assets/exp/ocr_slogan_tshirt_anyflow.webp",
+     "ocr": 0.0
+    },
+    "fewstepgrpo_ocr": {
+     "src": "assets/exp/ocr_slogan_tshirt_fewstepgrpo_ocr.webp",
+     "ocr": 1.0
+    },
+    "meanflowawm_ocr@300": {
+     "src": "assets/exp/ocr_slogan_tshirt_meanflowawm_ocr_it300.webp",
+     "ocr": 1.0
+    },
+    "dmdawm_ocr@100": {
+     "src": "assets/exp/ocr_slogan_tshirt_dmdawm_ocr_it100.webp",
+     "ocr": 0.89
+    },
+    "meanflownft_ocr@100": {
+     "src": "assets/exp/ocr_slogan_tshirt_meanflownft_ocr_it100.webp",
+     "ocr": 1.0
+    },
+    "dmdnft_ocr@100": {
+     "src": "assets/exp/ocr_slogan_tshirt_dmdnft_ocr_it100.webp",
+     "ocr": 1.0
+    }
+   }
+  },
+  {
+   "prompt": "A wooden signpost in a misty pine forest carved with the words \"Only 4 Steps\", soft rays of light through the trees.",
+   "seed": 10,
+   "models": {
+    "anyflow": {
+     "src": "assets/exp/ocr_slogan_4steps_anyflow.webp",
+     "ocr": 0.2
+    },
+    "fewstepgrpo_ocr": {
+     "src": "assets/exp/ocr_slogan_4steps_fewstepgrpo_ocr.webp",
+     "ocr": 1.0
+    },
+    "meanflowawm_ocr@300": {
+     "src": "assets/exp/ocr_slogan_4steps_meanflowawm_ocr_it300.webp",
+     "ocr": 0.9
+    },
+    "dmdawm_ocr@100": {
+     "src": "assets/exp/ocr_slogan_4steps_dmdawm_ocr_it100.webp",
+     "ocr": 0.9
+    },
+    "meanflownft_ocr@100": {
+     "src": "assets/exp/ocr_slogan_4steps_meanflownft_ocr_it100.webp",
+     "ocr": 0.9
+    },
+    "dmdnft_ocr@100": {
+     "src": "assets/exp/ocr_slogan_4steps_dmdnft_ocr_it100.webp",
+     "ocr": 0.9
+    }
+   }
+  }
+ ],
+ "posters": [
+  {
+   "src": "assets/gallery/poster_02.webp",
+   "full": "assets/gallery/poster_02_l.webp",
+   "pick": 2,
+   "trainer": "DMDNFT",
+   "prompt": "A glowing neon sign on a dark brick wall at night with the large title \"FewStepRL\" in bright cyan and magenta tubes and the small text \"Hunyuan\" in thin pink neon below it, rain reflections on the wet street.",
+   "seed": 13,
+   "source": "sd35_poster_v3/dmdnft_mix/r_neon_sign_s13.png",
+   "kind": "image",
+   "ckpt": "checkpoints/dmdnft_mix/checkpoint-400/generator_ema.pt"
+  },
+  {
+   "src": "assets/gallery/poster_04.webp",
+   "full": "assets/gallery/poster_04_l.webp",
+   "pick": 4,
+   "trainer": "DMDNFT",
+   "prompt": "An epic poster with the large title \"FewStepRL\" at the top and the small text \"Hunyuan\" at the bottom, an ancient temple on a misty mountain peak above a sea of clouds at sunrise, glowing lanterns, cinematic.",
+   "seed": 15,
+   "source": "sd35_poster_v3/dmdnft_mix/r_temple_s15.png",
+   "kind": "image",
+   "ckpt": "checkpoints/dmdnft_mix/checkpoint-400/generator_ema.pt"
+  },
+  {
+   "src": "assets/gallery/poster_09.webp",
+   "full": "assets/gallery/poster_09_l.webp",
+   "pick": 9,
+   "trainer": "MeanFlowNFT",
+   "prompt": "A cosmic poster with the large shining title \"FewStepRL\" in the center and the small text \"Hunyuan\" below it, a vast spiral galaxy and colorful nebula, deep space, stars, ultra detailed.",
+   "seed": 24,
+   "source": "sd35_poster_v3/meanflownft_mix/r_galaxy_s24.png",
+   "kind": "image",
+   "ckpt": "checkpoints/meanflownft_mix/checkpoint-400/generator_ema.pt"
+  },
+  {
+   "src": "assets/gallery/poster_14.webp",
+   "full": "assets/gallery/poster_14_l.webp",
+   "pick": 14,
+   "trainer": "DMDNFT",
+   "prompt": "A vintage travel poster with the large title \"FewStepRL\" at the top and the small text \"Hunyuan\" at the bottom, a sleek white bullet train speeding past Mount Fuji and cherry blossoms, flat illustration style, bold colors.",
+   "seed": 20,
+   "source": "sd35_poster_v3/dmdnft_mix/r_bullet_train_s20.png",
+   "kind": "image",
+   "ckpt": "checkpoints/dmdnft_mix/checkpoint-400/generator_ema.pt"
+  },
+  {
+   "src": "assets/gallery/poster_18.webp",
+   "full": "assets/gallery/poster_18_l.webp",
+   "pick": 18,
+   "trainer": "MeanFlowNFT",
+   "prompt": "A minimalist 3D poster with the large chrome title \"FewStepRL\" and the small text \"Hunyuan\" underneath, floating iridescent glass cubes and spheres on a soft pastel gradient background, octane render.",
+   "seed": 14,
+   "source": "sd35_poster_v3/meanflownft_mix/r_glass_cube_s14.png",
+   "kind": "image",
+   "ckpt": "checkpoints/meanflownft_mix/checkpoint-400/generator_ema.pt"
+  },
+  {
+   "src": "assets/gallery/poster_20.webp",
+   "full": "assets/gallery/poster_20_l.webp",
+   "pick": 20,
+   "trainer": "DMDNFT",
+   "prompt": "A festival poster with the large glowing title \"FewStepRL\" at the top and the small text \"Hunyuan\" at the bottom, thousands of warm paper lanterns floating over a calm lake at night, magical atmosphere.",
+   "seed": 10,
+   "source": "sd35_poster_v3/dmdnft_mix/r_lantern_night_s10.png",
+   "kind": "image",
+   "ckpt": "checkpoints/dmdnft_mix/checkpoint-400/generator_ema.pt"
+  }
+ ],
+ "compare_steps": {
+  "src": "assets/video/compare_steps.mp4",
+  "poster": "assets/video/compare_steps.webp"
+ }
+}
