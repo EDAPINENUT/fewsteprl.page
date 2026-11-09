@@ -1,7 +1,7 @@
-Voice: mio/amadeus, authored by mio.
-Model source: https://huggingface.co/mio/amadeus
-Revision: 015f9dcba2a283af4d5b1908f16136287a21bcd9
-License: Creative Commons Attribution 4.0 (CC BY 4.0): https://creativecommons.org/licenses/by/4.0/
-Synthesis engine: ESPnet2 VITS, Japanese, 22050Hz resampled to24000Hz. No cross-lingual voice clone is used.
-Japanese translations of the project narration are newly synthesized. CN and EN onscreen captions are retained.
-Source-voice reference provided by user: https://www.bilibili.com/video/BV1pe4y1C719/
+English adaptation of the synthetic Amadeus voice, using cross-lingual voice conditioning.
+Reference voice model: mio/amadeus by mio, CC BY 4.0. https://huggingface.co/mio/amadeus
+Reference revision: 015f9dcba2a283af4d5b1908f16136287a21bcd9
+English synthesis model: mlx-community/Qwen3-TTS-12Hz-0.6B-Base-4bit, based on Qwen3-TTS by Qwen (Apache-2.0). https://huggingface.co/mlx-community/Qwen3-TTS-12Hz-0.6B-Base-4bit
+This is an English-adapted approximation of the synthetic fictional-character timbre, not direct English output from the Japanese-only Amadeus model. Newly written technical narration.
+Technical letters u and v are spoken as you and vee; natural model pacing, no time stretching.
+The pronunciation reference is the previously generated English adaptation of the same synthetic Amadeus reference, to reduce Japanese phonetic carry-over. Technical letters are articulated explicitly as the letter V and the letter U.
