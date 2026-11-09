@@ -4,19 +4,20 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#0d1424">
-<title>FewStepRL — Code and checkpoints coming soon</title>
-<meta name="description" content="The FewStepRL code (SD3.5-Medium and Wan2.1) and checkpoints will be released soon.">
+<title>FewStepRL — Code and checkpoints</title>
+<meta name="description" content="The FewStepRL code (SD3.5-Medium and Wan2.1) and checkpoints are released.">
 <link rel="stylesheet" href="css/style.css">
 <style>
   .soon { min-height: 100vh; display: grid; place-items: center; padding: calc(var(--top) + 32px) 22px 48px; }
-  .soon .panel { max-width: 640px; width: 100%; text-align: center; background: var(--card); border: 1px solid var(--line);
+  .soon .panel { max-width: 680px; width: 100%; text-align: center; background: var(--card); border: 1px solid var(--line);
     border-radius: var(--radius); box-shadow: var(--shadow); padding: 48px 36px 40px; }
-  .soon .badge { display: inline-block; padding: 4px 12px; border-radius: 999px; background: var(--grp-soft); color: var(--hy);
+  .soon .badge { display: inline-block; padding: 4px 12px; border-radius: 999px; background: #e6f5ee; color: var(--ok);
     font-size: 12.5px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; }
   .soon h1 { font-size: 34px; margin: 18px 0 10px; }
   .soon .lead { color: var(--muted); font-size: 17px; }
-  .soon .items { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 12px; margin: 28px 0 30px; text-align: left; }
-  .soon .item { border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; background: var(--soft); }
+  .soon .items { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 12px; margin: 28px 0 30px; text-align: left; }
+  .soon .item { display: block; border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; background: var(--soft); color: var(--ink); }
+  .soon .item:hover { text-decoration: none; border-color: #c9cfdb; box-shadow: var(--shadow-sm); }
   .soon .item b { display: block; font-size: 14px; }
   .soon .item span { font-size: 13px; color: var(--muted); }
   .soon .actions { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
@@ -34,13 +35,15 @@
 
 <main class="soon">
   <div class="panel">
-    <span class="badge">Coming soon</span>
-    <h1>Code and checkpoints will be released soon.</h1>
-    <p class="lead">We are preparing the public release of FewStepRL. Stay tuned.</p>
+    <span class="badge">Released</span>
+    <h1>Code and checkpoints are released.</h1>
+    <p class="lead">Paper, code for images and videos, and every released checkpoint.</p>
     <div class="items">
-      <div class="item"><b>fewsteprl-sd35</b><span>Image code · SD3.5-Medium</span></div>
-      <div class="item"><b>fewsteprl-wan21</b><span>Video code · Wan2.1-T2V-1.3B</span></div>
-      <div class="item"><b>Checkpoints</b><span>Released LoRAs on Hugging Face</span></div>
+      <a class="item" href="https://arxiv.org/abs/2611.08240"><b>Paper</b><span>arXiv:2611.08240</span></a>
+      <a class="item" href="https://github.com/EDAPINENUT/fewsteprl-sd35"><b>fewsteprl-sd35</b><span>Image code · SD3.5-Medium</span></a>
+      <a class="item" href="https://github.com/EDAPINENUT/fewsteprl-wan21"><b>fewsteprl-wan21</b><span>Video code · Wan2.1-T2V-1.3B</span></a>
+      <a class="item" href="https://huggingface.co/Delcher/fewsteprl-sd35"><b>🤗 Image checkpoints</b><span>Delcher/fewsteprl-sd35</span></a>
+      <a class="item" href="https://huggingface.co/Delcher/fewsteprl-wan21"><b>🤗 Video checkpoints</b><span>Delcher/fewsteprl-wan21</span></a>
     </div>
     <div class="actions">
       <a class="btn" href="./">← Back to the project page</a>

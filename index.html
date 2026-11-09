@@ -16,9 +16,9 @@
   <a class="brand" href="#home"><span class="logo" aria-hidden="true"></span>FewStepRL <span class="sig">— Hunyuan</span></a>
   <span class="spacer"></span>
   <nav class="links">
-    <a class="btn" href="#cite" data-todo="paper-url">Paper</a>
-    <a class="btn" href="coming-soon.html" data-todo="sd35-url">Code · SD3.5</a>
-    <a class="btn" href="coming-soon.html" data-todo="wan-url">Code · Wan2.1</a>
+    <a class="btn" href="https://arxiv.org/abs/2611.08240">Paper</a>
+    <a class="btn" href="https://github.com/EDAPINENUT/fewsteprl-sd35">Code · SD3.5</a>
+    <a class="btn" href="https://github.com/EDAPINENUT/fewsteprl-wan21">Code · Wan2.1</a>
     <a class="btn solid" href="#framework">Read the blog →</a>
   </nav>
 </header>
@@ -80,9 +80,10 @@
       compared under one codebase on SD3.5-Medium (images) and Wan2.1-T2V-1.3B (videos).</p>
     <div class="cta">
       <a class="btn solid" href="#framework">Read the blog →</a>
-      <a class="btn" href="#cite" data-todo="paper-url">Paper</a>
-      <a class="btn" href="coming-soon.html" data-todo="sd35-url">Code · SD3.5</a>
-      <a class="btn" href="coming-soon.html" data-todo="wan-url">Code · Wan2.1</a>
+      <a class="btn" href="https://arxiv.org/abs/2611.08240">Paper</a>
+      <a class="btn" href="https://github.com/EDAPINENUT/fewsteprl-sd35">Code · SD3.5</a>
+      <a class="btn" href="https://github.com/EDAPINENUT/fewsteprl-wan21">Code · Wan2.1</a>
+      <a class="btn" href="#cite">🤗 Checkpoints</a>
       <a class="btn" href="#cite">BibTeX</a>
     </div>
     <div class="filmstrip" data-film="images-a" style="--dur:110s"></div>
@@ -576,12 +577,12 @@
 python inference.py scripts/eval/configs/sample_sd35m_fewstep.yaml \
   --prompt "..." --override num_stages=3 \
   stage3_lora_path=checkpoints/meanflownft_mix/checkpoint-400/generator_ema.pt</pre>
-      <a class="btn" href="coming-soon.html" data-todo="sd35-url">Repository (coming soon)</a></div>
+      <a class="btn" href="https://github.com/EDAPINENUT/fewsteprl-sd35">GitHub repository</a> <a class="btn" href="https://huggingface.co/Delcher/fewsteprl-sd35">🤗 Checkpoints</a></div>
     <div class="card"><h3 style="margin-top:0">fewsteprl-wan21</h3><p>Video code: AnyFlow-Wan2.1-T2V-1.3B; HPSv3 + VideoAlign rewards; VBench evaluation; seven released checkpoints at iteration 250.</p>
       <pre class="code">python inference.py scripts/eval/configs/sample_wan.yaml \
   --prompt "..." --override mode=meanflow_nft \
   meanflow_nft_path=checkpoints/dmdnft/checkpoint-250/generator_ema.pt</pre>
-      <a class="btn" href="coming-soon.html" data-todo="wan-url">Repository (coming soon)</a></div>
+      <a class="btn" href="https://github.com/EDAPINENUT/fewsteprl-wan21">GitHub repository</a> <a class="btn" href="https://huggingface.co/Delcher/fewsteprl-wan21">🤗 Checkpoints</a></div>
   </div>
   <h2>Released checkpoints</h2>
   <div class="table-wrap"><table class="data ckpts">
@@ -597,13 +598,14 @@ python inference.py scripts/eval/configs/sample_sd35m_fewstep.yaml \
       <tr class="rg"><td>ReFL</td><td><code>reflmx_mix</code> · 400</td><td>— (no gradient)</td><td><code>reflmx</code> · 250</td></tr>
       <tr class="base"><td>original objectives<span class="muted small"> (Fig. 1 baselines)</span></td><td><code>flowgrpo_mix</code>, <code>awm_mix</code>, <code>nft_mix</code> · 400</td><td>—</td><td>—</td></tr>
     </tbody></table></div>
-  <p class="note">Each entry is <code>checkpoints/&lt;trial&gt;/checkpoint-&lt;step&gt;/generator_ema.pt</code> (EMA Stage-3 LoRA, <a href="coming-soon.html">coming soon</a> on Hugging Face; SHA-256 in <code>checkpoints/SHA256SUMS</code>) in the repository named in the column header. Image LoRAs (≈ 43 MB) apply on top of SD3.5-Medium + the AnyFlow Stage-1/2 LoRAs; the DMD auxiliary velocity networks are in <code>checkpoints/aux_vel</code>. Video LoRAs (≈ 93 MB) apply on top of AnyFlow-Wan2.1-T2V-1.3B (non-commercial licence) and are all at iteration 250, the iteration of Tab. 8. The paper's image tables report fixed iterations (400 for mixed reward, ≤ 200 for OCR). Every sample on this page comes from these checkpoints.</p>
+  <p class="note">Each entry is <code>checkpoints/&lt;trial&gt;/checkpoint-&lt;step&gt;/generator_ema.pt</code> (EMA Stage-3 LoRA; SHA-256 in <code>checkpoints/SHA256SUMS</code>) in the Hugging Face repository of the column: <a href="https://huggingface.co/Delcher/fewsteprl-sd35">Delcher/fewsteprl-sd35</a> (images) or <a href="https://huggingface.co/Delcher/fewsteprl-wan21">Delcher/fewsteprl-wan21</a> (videos). Image LoRAs (≈ 43 MB) apply on top of SD3.5-Medium + the AnyFlow Stage-1/2 LoRAs; the DMD auxiliary velocity networks are in <code>checkpoints/aux_vel</code>. Video LoRAs (≈ 93 MB) apply on top of AnyFlow-Wan2.1-T2V-1.3B (non-commercial licence) and are all at iteration 250, the iteration of Tab. 8. The paper's image tables report fixed iterations (400 for mixed reward, ≤ 200 for OCR). Every sample on this page comes from these checkpoints.</p>
   <h2>BibTeX</h2>
-  <pre class="bib" id="bibtex">@misc{lin2026fewsteprl,
-  title  = {FewStepRL: Fine-tuning Few-step Diffusion Models with Reinforcement Learning},
-  author = {Lin, Haitao and Ren, Minsi and Li, Yang and Ge, Xingtong and
-            Hu, Zheyuan and Hu, Peiyan and Wu, Tailin},
-  year   = {2026}
+  <pre class="bib" id="bibtex">@article{lin2026fewsteprl,
+  title   = {FewStepRL: Fine-tuning Few-step Diffusion Models with Reinforcement Learning},
+  author  = {Lin, Haitao and Ren, Minsi and Li, Yang and Ge, Xingtong and
+             Hu, Zheyuan and Hu, Peiyan and Wu, Tailin},
+  journal = {arXiv preprint arXiv:2611.08240},
+  year    = {2026}
 }</pre>
   <button class="btn" id="copy-bib">Copy BibTeX</button>
   <h2>Acknowledgements</h2>

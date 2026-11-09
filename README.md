@@ -10,8 +10,11 @@ the files as they are. Local preview with any static server that supports HTTP R
 python3 -m http.server 8080
 ```
 
+Paper: [arXiv:2611.08240](https://arxiv.org/abs/2611.08240).
 Code: [fewsteprl-sd35](https://github.com/EDAPINENUT/fewsteprl-sd35) (images) and
 [fewsteprl-wan21](https://github.com/EDAPINENUT/fewsteprl-wan21) (videos).
+Checkpoints: [Delcher/fewsteprl-sd35](https://huggingface.co/Delcher/fewsteprl-sd35) and
+[Delcher/fewsteprl-wan21](https://huggingface.co/Delcher/fewsteprl-wan21).
 
 ## Structure
 
