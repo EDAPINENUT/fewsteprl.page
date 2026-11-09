@@ -1,0 +1,7 @@
+Voice: mio/amadeus, authored by mio.
+Model source: https://huggingface.co/mio/amadeus
+Revision: 015f9dcba2a283af4d5b1908f16136287a21bcd9
+License: Creative Commons Attribution 4.0 (CC BY 4.0): https://creativecommons.org/licenses/by/4.0/
+Synthesis engine: ESPnet2 VITS, Japanese, 22050Hz resampled to24000Hz. No cross-lingual voice clone is used.
+Japanese translations of the project narration are newly synthesized. CN and EN onscreen captions are retained.
+Source-voice reference provided by user: https://www.bilibili.com/video/BV1pe4y1C719/

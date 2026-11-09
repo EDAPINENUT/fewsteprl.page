@@ -1,0 +1,113 @@
+{
+  "duration": 154.08333333333334,
+  "chapters": [
+    {
+      "id": "intro",
+      "zh": "强化学习与高奖励",
+      "en": "RL and high rewards",
+      "start": 0.0,
+      "end": 10.0,
+      "related": "framework",
+      "group": "Framework"
+    },
+    {
+      "id": "velocity",
+      "zh": "瞬时速度与平均速度",
+      "en": "Instantaneous vs. average velocity",
+      "start": 10.0,
+      "end": 22.0,
+      "related": "framework",
+      "group": "Framework"
+    },
+    {
+      "id": "phase-1",
+      "zh": "① 变换到 x 空间",
+      "en": "Transformation to x-space",
+      "start": 22.0,
+      "end": 36.0,
+      "related": "phase-1",
+      "group": "Framework"
+    },
+    {
+      "id": "phase-2",
+      "zh": "② 解耦分解",
+      "en": "Decoupled decomposition",
+      "start": 36.0,
+      "end": 51.583333333333336,
+      "related": "phase-2",
+      "group": "Framework"
+    },
+    {
+      "id": "phase-3",
+      "zh": "③ 少步适配",
+      "en": "Few-step adaptation",
+      "start": 51.583333333333336,
+      "end": 69.58333333333334,
+      "related": "phase-3",
+      "group": "Framework"
+    },
+    {
+      "id": "methods",
+      "zh": "适配了哪些方法？",
+      "en": "Seven trainers in one framework",
+      "start": 69.58333333333334,
+      "end": 80.70833333333334,
+      "related": "methods",
+      "group": "Methods"
+    },
+    {
+      "id": "reward-grad",
+      "zh": "经验 1：奖励梯度优先",
+      "en": "Use affordable reward gradients",
+      "start": 80.70833333333334,
+      "end": 96.58333333333334,
+      "related": "exp-mix",
+      "group": "Evidence"
+    },
+    {
+      "id": "nft-family",
+      "zh": "经验 2：其次选 NFT",
+      "en": "Otherwise, start with NFT",
+      "start": 96.58333333333334,
+      "end": 108.58333333333334,
+      "related": "exp-mix",
+      "group": "Evidence"
+    },
+    {
+      "id": "adaptation",
+      "zh": "经验 3：适配不可省",
+      "en": "Adaptation matters",
+      "start": 108.58333333333334,
+      "end": 123.58333333333334,
+      "related": "phase-3",
+      "group": "Evidence"
+    },
+    {
+      "id": "test-steps",
+      "zh": "经验 4：更多步数未必更好",
+      "en": "More test steps do not guarantee gains",
+      "start": 123.58333333333334,
+      "end": 137.58333333333334,
+      "related": "exp-tts",
+      "group": "Evidence"
+    },
+    {
+      "id": "gallery",
+      "zh": "生成演示",
+      "en": "Video gallery · 4 steps, no CFG",
+      "start": 137.58333333333334,
+      "end": 151.58333333333334,
+      "related": "gallery",
+      "group": "Gallery"
+    },
+    {
+      "id": "thanks",
+      "zh": "感谢聆听",
+      "en": "Thanks for listening",
+      "start": 151.58333333333334,
+      "end": 154.08333333333334,
+      "related": "cite",
+      "group": "Gallery"
+    }
+  ]
+}

@@ -4,11 +4,13 @@ Project page of **FewStepRL: Fine-tuning Few-step Diffusion Models with Reinforc
 <https://edapinenut.github.io/fewsteprl.page/>.
 
 Static site (HTML + CSS + vanilla JS, no build step). All paths are relative; `.nojekyll` makes GitHub Pages serve
-the files as they are. Local preview with any static server that supports HTTP Range (needed for video seeking):
+the files as they are. A basic page preview can use:
 
 ```bash
 python3 -m http.server 8080
 ```
+
+Video chapter seeking needs an HTTP server that supports byte-range requests (`206 Partial Content`), as GitHub Pages does. Python's basic server does not support those requests, so use a range-capable static server when checking chapter playback.
 
 Paper: [arXiv:2611.08240](https://arxiv.org/abs/2611.08240).
 Code: [fewsteprl-sd35](https://github.com/EDAPINENUT/fewsteprl-sd35) (images) and
@@ -30,3 +32,9 @@ One page at a time, switched from the table of contents (hash routes, ←/→ ke
 
 Tables and curves follow the paper (`data/paper.json`); every sample comes from a released checkpoint, 4 steps,
 no CFG (`data/media.json`, `assets/`).
+
+## Animated whiteboard
+
+The overview contains the 2:34 whiteboard video, divided into twelve selectable chapters: background, the three phases, the adapted methods, four findings with evidence, the video gallery, and the closing. A selected chapter stops at its boundary; **Play all** continues through the full video. Article pages link directly to their matching chapter. The original interactive explainer remains available under **Explore the interactive diagrams**.
+
+`data/whiteboard-chapters.json` stores the chapter times and article links. `js/whiteboard.js` and `css/whiteboard.css` provide the chapter player and opt-in pixel typography, plus the small animated presenter in the three interactive phase diagrams. The curves and KaTeX formulas retain their original rendering. `assets/video/whiteboard-explainer.mp4` is the video source; the adjacent VTT files provide English/Chinese subtitle and chapter tracks. Font licensing is in `fonts/FusionPixel-LICENSE.txt`; synthesized Japanese voice attribution is in `assets/video/whiteboard-voice-attribution.txt`.

@@ -8,8 +8,9 @@
 <meta name="description" content="FewStepRL adapts RL objectives (FlowGRPO, AWM, DiffusionNFT, DiffusionOPSD, ReFL) to few-step flow-map generators in three phases: transformation, decomposition, adaptation.">
 <link rel="stylesheet" href="vendor/katex/katex.min.css">
 <link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/whiteboard.css">
 </head>
-<body>
+<body class="pixel-whiteboard-site">
 
 <header class="topbar">
   <button class="btn menu-toggle" id="menu-toggle" aria-label="Open contents">☰</button>
@@ -98,10 +99,34 @@
       <p>FewStepRL adapts RL objectives to few-step models systematically in <b>three phases</b>. Each method then reduces to a choice of <b>three anchors and three weights</b> inside one shared loss, so all seven trainers run under identical rollout, reward and evaluation code.</p>
     </div>
 
-    <h2 class="center">The three phases, explained</h2>
-    <p class="center note xp-intro">What RL does → instantaneous vs. average velocity → ① transformation → ② decomposition → ③ adaptation, with DiffusionNFT as the example (exact 1D flow, schematic 2D). <b>Play with narration</b> adds the voice (3&nbsp;min); click to pause or jump with the markers.</p>
-    <div class="explainer" data-explainer></div>
-    <p class="center small" style="margin-top:6px"><a href="assets/video/explainer.mp4" download>Download the narrated video (mp4)</a> · <a href="#framework">Read the framework →</a></p>
+    <section class="whiteboard-story" aria-labelledby="whiteboard-title" data-whiteboard>
+      <div class="whiteboard-heading">
+        <div><p class="whiteboard-eyebrow">ANIMATED WHITEBOARD · 2:34</p><h2 id="whiteboard-title">三步框架，四点经验<span>Three phases. Four practical findings.</span></h2></div>
+        <a class="btn" href="assets/video/whiteboard-explainer.mp4" download>Download MP4 ↓</a>
+      </div>
+      <p class="note">Chinese + English on the board, Japanese narration. Choose a chapter to watch it on its own, or play the full explanation through the final video gallery.</p>
+      <div class="whiteboard-screen">
+        <video id="whiteboard-video" controls playsinline preload="metadata" poster="assets/video/whiteboard-poster.webp" aria-label="FewStepRL animated whiteboard explanation">
+          <source src="assets/video/whiteboard-explainer.mp4" type="video/mp4">
+          <track kind="chapters" src="assets/video/whiteboard-chapters.vtt" srclang="en" label="Chapters">
+          <track kind="subtitles" src="assets/video/whiteboard-en.vtt" srclang="en" label="English">
+          <track kind="subtitles" src="assets/video/whiteboard-zh.vtt" srclang="zh" label="中文">
+          <p><a href="assets/video/whiteboard-explainer.mp4">Download the explanation</a> to watch it in your video player.</p>
+        </video>
+      </div>
+      <div class="whiteboard-actions">
+        <div class="whiteboard-play-actions"><button class="btn solid" type="button" data-play-chapter>Play selected chapter</button><button class="btn" type="button" data-play-all>Play all · 2:34</button></div>
+        <a class="whiteboard-related" href="#framework" data-chapter-related>Read this section →</a>
+      </div>
+      <p class="whiteboard-current" data-chapter-current aria-live="polite">Loading chapters…</p>
+      <nav class="whiteboard-chapters" aria-label="Whiteboard video chapters" data-whiteboard-chapters></nav>
+      <p class="whiteboard-credits small"><a href="assets/video/whiteboard-voice-attribution.txt">Voice attribution</a> · Pixel font: <a href="https://github.com/TakWolf/fusion-pixel-font">Fusion Pixel</a> (<a href="fonts/FusionPixel-LICENSE.txt">OFL 1.1</a>)</p>
+    </section>
+    <details class="whiteboard-interactive">
+      <summary>Explore the interactive diagrams <span>拖动、暂停，细看三步框架</span></summary>
+      <p class="note xp-intro">What RL does → instantaneous vs. average velocity → ① transformation → ② decomposition → ③ adaptation, with DiffusionNFT as the example (exact 1D flow, schematic 2D). Pause or jump between the markers to examine the formulas.</p>
+      <div class="explainer" data-explainer></div>
+    </details>
 
     <h2 class="center">How each RL objective enters the three phases</h2>
     <p class="center note"><span class="badge sm grp">GA</span> group-advantage-based · <span class="badge sm rg">RG</span> reward-gradient-based. Click a method to open its page; the phase links open the blog chapter.</p>
@@ -152,6 +177,7 @@
 <section class="page" id="p-framework" data-title="Why few-step RL?">
   <div class="kicker">The framework · 0</div>
   <h1>Why few-step RL needs a framework</h1>
+  <a class="whiteboard-watch" href="#home" data-watch-chapter="velocity"><span aria-hidden="true">▶</span> Watch this chapter <span lang="zh">分段白板讲解</span></a>
   <p class="lead">RL rollouts dominate the cost of post-training. Few-step generators make rollouts cheap, but they predict an <em>average</em> velocity, while every RL objective we want to use was written for an <em>instantaneous</em> one.</p>
 
   <h2>The few-step generator</h2>
@@ -201,6 +227,7 @@
 <section class="page" id="p-phase-1" data-title="Transformation to x-space">
   <div class="kicker">The framework · phase 1</div>
   <h1>Transformation to x-space</h1>
+  <a class="whiteboard-watch" href="#home" data-watch-chapter="phase-1"><span aria-hidden="true">▶</span> Watch this chapter <span lang="zh">分段白板讲解</span></a>
   <p class="lead">The objectives we consider are written in transition-density, velocity or reward space. Under the linear noise schedule a velocity instead identifies a <b>point</b> in x-space at any chosen level \(r\), so every objective can be expressed through one common prediction. <span class="src">§4.1</span></p>
 
   <div class="eqbox"><div class="label">affine transport and the x-space identity</div>
@@ -244,6 +271,7 @@
 <section class="page" id="p-phase-2" data-title="Decoupled decomposition">
   <div class="kicker">The framework · phase 2</div>
   <h1>The decoupled loss decomposition</h1>
+  <a class="whiteboard-watch" href="#home" data-watch-chapter="phase-2"><span aria-hidden="true">▶</span> Watch this chapter <span lang="zh">分段白板讲解</span></a>
   <p class="lead">In x-space, the gradient of every objective considered here is the transposed Jacobian of the prediction applied to the sum of two vectors: a reward-free <b>self-regression</b> and a <b>reward augmentation</b>. <span class="src">§4.2</span></p>
 
   <div class="eqbox"><div class="label">general gradient (the framework)</div>
@@ -295,6 +323,7 @@
 <section class="page" id="p-phase-3" data-title="Few-step adaptation">
   <div class="kicker">The framework · phase 3</div>
   <h1>Adaptation to few-step models</h1>
+  <a class="whiteboard-watch" href="#home" data-watch-chapter="phase-3"><span aria-hidden="true">▶</span> Watch this chapter <span lang="zh">分段白板讲解</span></a>
   <p class="lead">The framework needs instantaneous velocities, but a few-step policy outputs an average velocity \(u_\theta(\tilde x_t,t,r)\). The rollout sample needs no reconstruction and the teacher stays instantaneous, so only \(\tilde x_\theta\) and the old-policy anchors must be rebuilt. <span class="src">§4.3</span></p>
 
   <div class="grid2">
@@ -366,6 +395,7 @@
 <section class="page" id="p-methods" data-title="Methods: family map &amp; components">
   <div class="kicker">Methods in the framework</div>
   <h1>Seven trainers, one training step</h1>
+  <a class="whiteboard-watch" href="#home" data-watch-chapter="methods"><span aria-hidden="true">▶</span> Watch this chapter <span lang="zh">分段白板讲解</span></a>
   <p class="lead">Each original objective becomes a few-step trainer by choosing its anchors, weights and instantaneous-velocity estimator. Five trainers are <b style="color:var(--grp)">group-advantage-based</b> (the reward enters only through scalar advantages of a prompt group); two are <b style="color:var(--rg)">reward-gradient-based</b> (the update direction comes from \(\nabla R\)). <span class="src">Tab. 5</span></p>
 
   <h2>Family map</h2>
@@ -520,6 +550,7 @@
 <section class="page" id="p-exp-tts" data-title="Test-time scaling">
   <div class="kicker">Experiments · IV</div>
   <h1>Does a 4-step model improve with more steps?</h1>
+  <a class="whiteboard-watch" href="#home" data-watch-chapter="test-steps"><span aria-hidden="true">▶</span> Watch this chapter <span lang="zh">分段白板讲解</span></a>
   <p class="lead">Each fine-tuned checkpoint is sampled at \(M_{\mathrm{step}}\in\{4,8,16,32\}\) on the same shifted grid, 256 DrawBench prompts, seed 12345, no retraining. References: the AnyFlow init and SD3.5-Medium with CFG 4.5. <span class="src">§6.5</span></p>
   <div class="chart-card" id="chart-tts">
     <div class="chart-head"><h4>Absolute value against the number of sampling steps <span class="src">Fig. 7</span></h4><div class="seg" data-metrics></div></div>
@@ -542,6 +573,7 @@
 <section class="page" id="p-guidance" data-title="Practical guidance">
   <div class="kicker">Experiments · V</div>
   <h1>Which trainer should I use?</h1>
+  <a class="whiteboard-watch" href="#home" data-watch-chapter="reward-grad"><span aria-hidden="true">▶</span> Watch this chapter <span lang="zh">分段白板讲解</span></a>
   <p class="lead">Guidance distilled from the experiments, each from a single run. Answer two questions to get the paper's recommendation. <span class="src">§6.6</span></p>
   <div class="tree" id="tree"></div>
   <h2>Open problems <span class="src">§7</span></h2>
@@ -558,6 +590,7 @@
 <section class="page" id="p-gallery" data-title="Gallery">
   <div class="kicker">Gallery</div>
   <h1>4 steps, no CFG</h1>
+  <a class="whiteboard-watch" href="#home" data-watch-chapter="gallery"><span aria-hidden="true">▶</span> Watch this chapter <span lang="zh">分段白板讲解</span></a>
   <p class="lead">Images (SD3.5-Medium, 512²) and videos (Wan2.1-T2V-1.3B, 81 frames) from the released FewStepRL checkpoints. Hover a strip to stop it and reveal the true colours; click a frame for its trainer, prompt and seed.</p>
   <div class="filmstrip" data-film="images-a" style="--h:190px;--dur:120s"></div>
   <div class="filmstrip reverse" data-film="videos" style="--h:170px;--dur:100s"></div>
@@ -626,5 +659,6 @@ python inference.py scripts/eval/configs/sample_sd35m_fewstep.yaml \
 <script src="data/narration.js"></script>
 <script src="js/explainer.js"></script>
 <script src="js/main.js"></script>
+<script src="js/whiteboard.js"></script>
 </body>
 </html>

@@ -1,0 +1,73 @@
+WEBVTT
+
+00:00:00.180 --> 00:00:04.449
+Reinforcement learning shifts a generator toward high-reward samples.
+
+00:00:04.609 --> 00:00:09.148
+Few-step sampling makes the repeated rollouts cheaper.
+
+00:00:10.180 --> 00:00:13.157
+A flow model predicts instantaneous velocity, v.
+
+00:00:13.317 --> 00:00:18.773
+A few-step model predicts average velocity, u, so existing reinforcement learning objectives need adaptation.
+
+00:00:22.180 --> 00:00:27.729
+First, transformation. Rewrite the objective in clean sample space.
+
+00:00:27.889 --> 00:00:34.059
+At a fixed noisy state, comparing velocities is equivalent to comparing their clean endpoints, up to a known scale.
+
+00:00:36.180 --> 00:00:42.451
+Second, decomposition. Split the update into self-regression and reward augmentation.
+
+00:00:42.611 --> 00:00:50.944
+The first keeps predictions near the old policy; the second pulls toward good samples and pushes away from bad ones.
+
+00:00:51.763 --> 00:00:57.133
+Third, adaptation. Rebuild the prediction and anchors from average velocity.
+
+00:00:57.293 --> 00:00:59.998
+The u-form uses the transport endpoint.
+
+00:01:00.158 --> 00:01:06.542
+The v-form uses instantaneous velocity, recovered through MeanFlow or an auxiliary DMD network.
+
+00:01:09.763 --> 00:01:14.788
+These three phases adapt five objectives into seven trainers.
+
+00:01:14.948 --> 00:01:20.090
+They cover group-advantage methods and reward-gradient methods.
+
+00:01:20.888 --> 00:01:28.997
+First finding: with a differentiable reward, use reward gradients when affordable.
+
+00:01:29.157 --> 00:01:35.959
+FewStepOPSD and ReFL reach the highest mixed rewards, outperforming all five group-advantage methods.
+
+00:01:36.763 --> 00:01:39.871
+Otherwise, consider the NFT family.
+
+00:01:40.031 --> 00:01:45.952
+On mixed rewards, both NFT variants outperform the other group-advantage methods.
+
+00:01:48.763 --> 00:01:54.110
+Adaptation matters. Simply substituting average velocity gives weaker rewards.
+
+00:01:54.271 --> 00:01:59.702
+Rebuilding the objective improves both FlowGRPO and DiffusionNFT.
+
+00:02:03.763 --> 00:02:08.744
+More test-time steps give no systematic aggregate gain.
+
+00:02:08.904 --> 00:02:15.683
+From four to thirty-two steps, rewards stay nearly flat, even when individual samples look cleaner.
+
+00:02:17.763 --> 00:02:25.124
+These released checkpoints generate all nine video examples in four steps, without classifier-free guidance.
+
+00:02:25.284 --> 00:02:29.430
+The prompts and seeds are curated; this is a qualitative demonstration.
+
+00:02:31.763 --> 00:02:33.329
+Thanks for listening.
