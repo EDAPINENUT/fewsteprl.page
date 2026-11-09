@@ -11,7 +11,7 @@
   const clock = s => `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, "0")}`;
   let data;
   try {
-    const response = await fetch("data/whiteboard-chapters.json?v=english-kurisu-v3");
+    const response = await fetch("data/whiteboard-chapters.json?v=voice-a-v4");
     if (!response.ok) throw new Error("Chapter metadata unavailable");
     data = await response.json();
   } catch (_) {

@@ -1,7 +1,7 @@
-English adaptation of the synthetic Amadeus voice, using cross-lingual voice conditioning.
-Reference voice model: mio/amadeus by mio, CC BY 4.0. https://huggingface.co/mio/amadeus
-Reference revision: 015f9dcba2a283af4d5b1908f16136287a21bcd9
-English synthesis model: mlx-community/Qwen3-TTS-12Hz-0.6B-Base-4bit, based on Qwen3-TTS by Qwen (Apache-2.0). https://huggingface.co/mlx-community/Qwen3-TTS-12Hz-0.6B-Base-4bit
-This is an English-adapted approximation of the synthetic fictional-character timbre, not direct English output from the Japanese-only Amadeus model. Newly written technical narration.
-Technical letters u and v are spoken as you and vee; natural model pacing, no time stretching.
-The pronunciation reference is the previously generated English adaptation of the same synthetic Amadeus reference, to reduce Japanese phonetic carry-over. Technical letters are articulated explicitly as the letter V and the letter U.
+Selected audition A voice. English synthesis uses only the speaker embedding extracted from native-en-current-reference.wav, with ref_text=None and explicit English language ID.
+Reference: current synthetic Amadeus-adapted film, first20seconds. Original reference model mio/amadeus by mio, CC BY4.0, https://huggingface.co/mio/amadeus
+Synthesis: mlx-community/Qwen3-TTS-12Hz-0.6B-Base-4bit (Qwen3-TTS, Apache2.0), https://huggingface.co/mlx-community/Qwen3-TTS-12Hz-0.6B-Base-4bit
+Audition A settings preserved: temperature0.35, seed7, top_k50, top_p1. No reference transcript or reference acoustic/prosody codes, no OpenVoice conversion.
+Newly generated English technical narration; natural pacing, no time stretching. Technical letters U/V are articulated explicitly.
+Reference SHA256: 0ded337529802a0f065058ebacd4d7a83ad9480b4c99880eb705e1013587ff2f
+Five spoken clauses were rephrased without changing their meaning to avoid low-temperature early-stop or repeated-tail defects; the approved on-screen English captions remain unchanged. Whisper-small verified all24 semantic cues, instantaneousV/averageU andU-form/V-form. Acronym spelling in automatic transcription can vary; model input spells FlowGRPO as Flow G R P O.

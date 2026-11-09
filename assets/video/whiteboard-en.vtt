@@ -1,97 +1,97 @@
 WEBVTT
 
 1
-00:00:00.180 --> 00:00:03.907
+00:00:00.180 --> 00:00:04.450
 Reinforcement learning shifts a generator toward high-reward samples.
 
 2
-00:00:04.067 --> 00:00:07.273
+00:00:04.610 --> 00:00:08.324
 Few-step sampling makes the repeated rollouts cheaper.
 
 3
-00:00:10.180 --> 00:00:13.897
+00:00:10.180 --> 00:00:14.453
 A flow model predicts instantaneous velocity, v.
 
 4
-00:00:14.057 --> 00:00:21.492
+00:00:14.613 --> 00:00:22.856
 A few-step model predicts average velocity, u, so existing reinforcement learning objectives need adaptation.
 
 5
-00:00:22.222 --> 00:00:26.963
+00:00:23.597 --> 00:00:27.747
 First, transformation. Rewrite the objective in clean sample space.
 
 6
-00:00:27.123 --> 00:00:34.978
+00:00:27.907 --> 00:00:34.737
 At a fixed noisy state, comparing velocities is equivalent to comparing their clean endpoints, up to a known scale.
 
 7
-00:00:36.222 --> 00:00:41.934
+00:00:37.597 --> 00:00:43.262
 Second, decomposition. Split the update into self-regression and reward augmentation.
 
 8
-00:00:42.094 --> 00:00:49.043
+00:00:43.422 --> 00:00:51.162
 The first keeps predictions near the old policy; the second pulls toward good samples and pushes away from bad ones.
 
 9
-00:00:50.222 --> 00:00:55.551
+00:00:51.930 --> 00:00:58.267
 Third, adaptation. Rebuild the prediction and anchors from average velocity.
 
 10
-00:00:55.711 --> 00:00:58.527
+00:00:58.427 --> 00:01:01.264
 The u-form uses the transport endpoint.
 
 11
-00:00:58.687 --> 00:01:05.291
+00:01:01.424 --> 00:01:09.696
 The v-form uses instantaneous velocity, recovered through MeanFlow or an auxiliary DMD network.
 
 12
-00:01:08.222 --> 00:01:11.824
+00:01:10.430 --> 00:01:14.285
 These three phases adapt five objectives into seven trainers.
 
 13
-00:01:11.983 --> 00:01:15.476
+00:01:14.445 --> 00:01:18.716
 They cover group-advantage methods and reward-gradient methods.
 
 14
-00:01:18.222 --> 00:01:23.338
+00:01:20.430 --> 00:01:26.148
 First finding: with a differentiable reward, use reward gradients when affordable.
 
 15
-00:01:23.498 --> 00:01:31.430
+00:01:26.308 --> 00:01:35.010
 FewStepOPSD and ReFL reach the highest mixed rewards, outperforming all five group-advantage methods.
 
 16
-00:01:33.222 --> 00:01:35.547
+00:01:35.763 --> 00:01:38.295
 Otherwise, consider the NFT family.
 
 17
-00:01:35.707 --> 00:01:41.652
+00:01:38.455 --> 00:01:44.800
 On mixed rewards, both NFT variants outperform the other group-advantage methods.
 
 18
-00:01:45.222 --> 00:01:50.206
+00:01:47.763 --> 00:01:53.758
 Adaptation matters. Simply substituting average velocity gives weaker rewards.
 
 19
-00:01:50.366 --> 00:01:56.544
+00:01:53.918 --> 00:01:59.069
 Rebuilding the objective improves both FlowGRPO and DiffusionNFT.
 
 20
-00:02:00.222 --> 00:02:04.108
+00:02:02.763 --> 00:02:06.785
 More test-time steps give no systematic aggregate gain.
 
 21
-00:02:04.268 --> 00:02:10.365
+00:02:06.945 --> 00:02:13.301
 From four to thirty-two steps, rewards stay nearly flat, even when individual samples look cleaner.
 
 22
-00:02:14.222 --> 00:02:21.079
+00:02:16.763 --> 00:02:24.597
 These released checkpoints generate all nine video examples in four steps, without classifier-free guidance.
 
 23
-00:02:21.239 --> 00:02:24.892
+00:02:24.757 --> 00:02:31.567
 The prompts and seeds are curated; this is a qualitative demonstration.
 
 24
-00:02:28.192 --> 00:02:29.249
+00:02:32.275 --> 00:02:33.343
 Thanks for listening.

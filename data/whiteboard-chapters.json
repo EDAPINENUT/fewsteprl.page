@@ -1,5 +1,5 @@
 {
-  "duration": 150.54166666666666,
+  "duration": 154.625,
   "chapters": [
     {
       "id": "intro",
@@ -13,87 +13,87 @@
       "id": "velocity",
       "en": "Instantaneous vs. average velocity",
       "start": 10.0,
-      "end": 22.041666666666664,
+      "end": 23.416666666666664,
       "related": "framework",
       "group": "Framework"
     },
     {
       "id": "phase-1",
       "en": "Transformation to x-space",
-      "start": 22.041666666666664,
-      "end": 36.041666666666664,
+      "start": 23.416666666666664,
+      "end": 37.416666666666664,
       "related": "phase-1",
       "group": "Framework"
     },
     {
       "id": "phase-2",
       "en": "Decoupled decomposition",
-      "start": 36.041666666666664,
-      "end": 50.041666666666664,
+      "start": 37.416666666666664,
+      "end": 51.75,
       "related": "phase-2",
       "group": "Framework"
     },
     {
       "id": "phase-3",
       "en": "Few-step adaptation",
-      "start": 50.041666666666664,
-      "end": 68.04166666666666,
+      "start": 51.75,
+      "end": 70.25,
       "related": "phase-3",
       "group": "Framework"
     },
     {
       "id": "methods",
       "en": "Seven trainers in one framework",
-      "start": 68.04166666666666,
-      "end": 78.04166666666666,
+      "start": 70.25,
+      "end": 80.25,
       "related": "methods",
       "group": "Methods"
     },
     {
       "id": "reward-grad",
       "en": "Use affordable reward gradients",
-      "start": 78.04166666666666,
-      "end": 93.04166666666666,
+      "start": 80.25,
+      "end": 95.58333333333333,
       "related": "exp-mix",
       "group": "Evidence"
     },
     {
       "id": "nft-family",
       "en": "Otherwise, start with NFT",
-      "start": 93.04166666666666,
-      "end": 105.04166666666666,
+      "start": 95.58333333333333,
+      "end": 107.58333333333333,
       "related": "exp-mix",
       "group": "Evidence"
     },
     {
       "id": "adaptation",
       "en": "Adaptation matters",
-      "start": 105.04166666666666,
-      "end": 120.04166666666666,
+      "start": 107.58333333333333,
+      "end": 122.58333333333333,
       "related": "phase-3",
       "group": "Evidence"
     },
     {
       "id": "test-steps",
       "en": "More test steps do not guarantee gains",
-      "start": 120.04166666666666,
-      "end": 134.04166666666666,
+      "start": 122.58333333333333,
+      "end": 136.58333333333331,
       "related": "exp-tts",
       "group": "Evidence"
     },
     {
       "id": "gallery",
       "en": "Video gallery \u00b7 4 steps, no CFG",
-      "start": 134.04166666666666,
-      "end": 148.04166666666666,
+      "start": 136.58333333333331,
+      "end": 152.12499999999997,
       "related": "gallery",
       "group": "Gallery"
     },
     {
       "id": "thanks",
       "en": "Thanks for listening",
-      "start": 148.04166666666666,
-      "end": 150.54166666666666,
+      "start": 152.12499999999997,
+      "end": 154.62499999999997,
       "related": "cite",
       "group": "Gallery"
     }
